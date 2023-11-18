@@ -12,10 +12,8 @@ const Banner = () => {
         <div className="text-content">
           <h1>SALES</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-            voluptates obcaecati explicabo sapiente. Quis iusto tempora
-            voluptate optio, soluta excepturi eligendi corporis corrupti,
-            pariatur sapiente eveniet fugit maxime accusantium nesciunt.
+            Shop the Future: Elevate Your Style, Elevate Your Life. Explore
+            Endless Possibilities at Hamro Bazar.
           </p>
           <div className="ctas">
             <div className="banner-cta">Read More...</div>
