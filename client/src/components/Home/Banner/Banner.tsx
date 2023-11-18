@@ -6,7 +6,7 @@ const Banner = () => {
   return (
     <div
       className="hero-banner"
-      style={{ backgroundImage: "linear-gradient(to right, #8e2de2, #4a00e0)" }}
+      style={{ backgroundImage: "linear-gradient(to right, #374046, #6b7074)" }}
     >
       <div className="content">
         <div className="text-content">
