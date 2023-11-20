@@ -1,10 +1,24 @@
 import React from "react";
 import "./Category.scss";
+import { useCategory } from "../../../api/GetApi";
 
 const Category = () => {
+  const { data: categoryData, isLoading, isError } = useCategory();
+
+  if (isLoading) {
+    return <div>Loading category data...</div>;
+  }
+
+  if (isError) {
+    return <div>Error fetching category data from API</div>;
+  }
+
+  const categoryName = categoryData[0]?.name;
+
   return (
     <div className="shop-by-category">
       <div className="categories">
+        <div>{categoryName}</div>
         <div className="category">Category Image</div>
         <div className="category">Category Image</div>
         <div className="category">Category Image</div>
