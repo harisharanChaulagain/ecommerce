@@ -12,6 +12,7 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const navigate = useNavigate();
   const handleScroll = () => {
     const offset = window.scrollY;
     if (offset > 200) {
@@ -23,14 +24,22 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   }, []);
+
+  const handleAboutClick = () => {
+    const aboutSection = document.getElementById("about-section");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <div className={`main-header ${scrolled ? "sticky-header" : ""}`}>
         <div className="header-content">
           <ul className="left">
-            <li>Home</li>
-            <li>About</li>
-            <li>Categories</li>
+            <li onClick={() => navigate("/")}>Home</li>
+            <li onClick={handleAboutClick}>About</li>
+            <li onClick={() => navigate("/category/:id")}>Categories</li>
           </ul>
           <div className="center">Hamro Bazar</div>
           <div className="right">

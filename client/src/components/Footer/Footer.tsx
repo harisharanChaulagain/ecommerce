@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <div className="footer-main">
       <div className="footer-content">
-        <div className="col">
+        <div id="about-section" className="col">
           <div className="title">About</div>
           <div className="text">
             Step into Hamro Bazar, where each purchase unfolds a distinctive
