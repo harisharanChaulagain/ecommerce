@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./NewCategory.scss";
 import { MdClose } from "react-icons/md";
 import { Context } from "../../../utils/context";
@@ -16,8 +16,19 @@ const NewCategory = () => {
             onClick={() => setNewCategory(false)}
           />
         </div>
-        <input type="text" autoFocus placeholder="Add New Category" />
-        <button className="save-btn">Save</button>
+        <div>
+          <div>
+            <div>Category Name</div>
+            <input type="text" autoFocus placeholder="Add New Category" />
+          </div>
+          <div>
+            <div>Image</div>
+            <input type="file" accept=".png, .jpeg, .jpg" />
+          </div>
+        </div>
+        <div className="button-main">
+          <button className="save-btn">Save</button>
+        </div>
       </div>
     </div>
   );
