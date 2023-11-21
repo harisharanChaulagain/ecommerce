@@ -1,0 +1,36 @@
+@import "../../../css-config/mixins.scss";
+.dropdown-item {
+  position: relative;
+  .dropdown-content {
+    position: absolute;
+    left: 27%;
+    width: 200px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    padding: 10px;
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+
+      svg {
+        font-size: 18px;
+      }
+    }
+  }
+  &.sticky-header {
+    position: sticky;
+    top: 80px;
+    transform: translateY(-80px);
+    animation: stickyHeader 0.3s ease forwards;
+    z-index: 99;
+  }
+}

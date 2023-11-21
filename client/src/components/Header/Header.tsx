@@ -1,18 +1,22 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TbSearch } from "react-icons/tb";
 import { CgShoppingCart } from "react-icons/cg";
 import { AiOutlineHeart } from "react-icons/ai";
 import Search from "./Search/Search";
 import Cart from "../Cart/Cart";
-import { Context } from "../../utils/context";
 import "./Header.scss";
+import { FaAngleDown } from "react-icons/fa";
+import DropDownItem from "./DropDownItem/DropDownItem";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef<any>(null);
+
   const handleScroll = () => {
     const offset = window.scrollY;
     if (offset > 200) {
@@ -21,8 +25,25 @@ const Header = () => {
       setScrolled(false);
     }
   };
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("click", handleClickOutside);
+    };
   }, []);
 
   const handleAboutClick = () => {
@@ -30,6 +51,10 @@ const Header = () => {
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleDropdownClick = () => {
+    setShowDropdown(!showDropdown);
   };
 
   return (
@@ -40,6 +65,13 @@ const Header = () => {
             <li onClick={() => navigate("/")}>Home</li>
             <li onClick={handleAboutClick}>About</li>
             <li onClick={() => navigate("/category/:id")}>Categories</li>
+            <li
+              className="dropdown-item"
+              onClick={handleDropdownClick}
+              ref={dropdownRef}
+            >
+              Add New <FaAngleDown />
+            </li>
           </ul>
           <div className="center">Hamro Bazar</div>
           <div className="right">
@@ -54,6 +86,7 @@ const Header = () => {
       </div>
       {showCart && <Cart setShowCart={setShowCart} />}
       {showSearch && <Search setShowSearch={setShowSearch} />}
+      {showDropdown && <DropDownItem />}
     </>
   );
 };
