@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./DropDownItem.scss";
 import { BsPlusCircle } from "react-icons/bs";
+import { Context } from "../../../utils/context";
 
 const DropDownItem = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { setNewCategory }: any = useContext(Context);
+  const { setNewProduct }: any = useContext(Context);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -21,14 +24,21 @@ const DropDownItem = () => {
     };
   }, []);
 
+  const handleNewCategoryClick = () => {
+    setNewCategory(true);
+  };
+  const handleNewProductClick = () => {
+    setNewProduct(true);
+  };
+
   return (
     <div className={`dropdown-item ${scrolled ? "sticky-header" : ""}`}>
       <div className="dropdown-content">
-        <div>
+        <div onClick={handleNewCategoryClick}>
           Add New Category
           <BsPlusCircle />
         </div>
-        <div>
+        <div onClick={handleNewProductClick}>
           Add New Product
           <BsPlusCircle />
         </div>

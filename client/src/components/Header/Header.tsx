@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { TbSearch } from "react-icons/tb";
 import { CgShoppingCart } from "react-icons/cg";
@@ -8,14 +8,20 @@ import Cart from "../Cart/Cart";
 import "./Header.scss";
 import { FaAngleDown } from "react-icons/fa";
 import DropDownItem from "./DropDownItem/DropDownItem";
+import { Context } from "../../utils/context";
+import NewCategory from "../Category/NewCategory/NewCategory";
+import NewProduct from "../Products/NewProduct/NewProduct";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [newCategory, setNewCategory] = useState(false);
+  const [newProduct, setNewProduct] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef<any>(null);
+  const context = useContext<any>(Context);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -37,14 +43,21 @@ const Header = () => {
         setShowDropdown(false);
       }
     };
-
     document.addEventListener("click", handleClickOutside);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    setNewCategory(() => {
+      return context.newCategory;
+    });
+    setNewProduct(() => {
+      return context.newProduct;
+    });
+  }, [context.newCategory, context.newProduct]);
 
   const handleAboutClick = () => {
     const aboutSection = document.getElementById("about-section");
@@ -86,6 +99,8 @@ const Header = () => {
       </div>
       {showCart && <Cart setShowCart={setShowCart} />}
       {showSearch && <Search setShowSearch={setShowSearch} />}
+      {newCategory && <NewCategory />}
+      {newProduct && <NewProduct />}
       {showDropdown && <DropDownItem />}
     </>
   );

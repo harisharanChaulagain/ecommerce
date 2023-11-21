@@ -1,15 +1,34 @@
-import React, { createContext, ReactNode } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
+
+interface ContextValue {
+  newCategory: boolean;
+  newProduct: boolean;
+  setNewCategory: Dispatch<SetStateAction<boolean>>;
+  setNewProduct: Dispatch<SetStateAction<boolean>>;
+}
+
+export const Context = createContext<ContextValue | undefined>(undefined);
 
 interface AppContextProps {
   children: ReactNode;
 }
 
-interface ContextValue {}
+export const AppContext: React.FC<AppContextProps> = ({ children }) => {
+  const [newCategory, setNewCategory] = useState(false);
+  const [newProduct, setNewProduct] = useState(false);
 
-export const Context = createContext<ContextValue | undefined>(undefined);
-
-const AppContext: React.FC<AppContextProps> = ({ children }) => {
-  const contextValue: ContextValue = {};
+  const contextValue: ContextValue = {
+    newCategory,
+    newProduct,
+    setNewCategory,
+    setNewProduct,
+  };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };
