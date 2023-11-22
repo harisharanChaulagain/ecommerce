@@ -3,14 +3,16 @@ import "./NewProduct.scss";
 import { MdClose } from "react-icons/md";
 import { Context } from "../../../utils/context";
 import Select from "react-select";
+import { useCategory } from "../../../api/GetApi";
 
-const categories = [
-  { value: "category1", label: "Category 1" },
-  { value: "category2", label: "Category 2" },
-  { value: "category3", label: "Category 3" },
-];
 const NewProduct = () => {
   const { setNewProduct }: any = useContext(Context);
+  const { data: categoryData } = useCategory();
+  const categories =
+    categoryData?.map((category: any) => ({
+      value: category.name,
+      label: category.name,
+    })) || [];
 
   return (
     <div className="new-product-overlay">
