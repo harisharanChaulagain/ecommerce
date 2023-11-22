@@ -2,11 +2,11 @@ import React, { useContext, useState } from "react";
 import "./NewCategory.scss";
 import { MdClose } from "react-icons/md";
 import { Context } from "../../../utils/context";
-import usePostApi from "../../../api/PostApi";
+import { usePostCategory } from "../../../api/PostApi";
 
 const NewCategory = () => {
   const { setNewCategory }: any = useContext(Context);
-  const { mutation } = usePostApi();
+  const { mutation } = usePostCategory();
 
   const [categoryName, setCategoryName] = useState("");
   const [categoryImage, setCategoryImage] = useState<File | null>(null);

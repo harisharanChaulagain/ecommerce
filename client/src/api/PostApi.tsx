@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useMutation } from "react-query";
 
-const usePostApi = () => {
+export const usePostCategory = () => {
   const postRequest = async (data: FormData) => {
     try {
       const response = await axios.post(
@@ -25,4 +25,26 @@ const usePostApi = () => {
   return { mutation };
 };
 
-export default usePostApi;
+export const usePostProduct = () => {
+  const postRequest = async (data: FormData) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/products",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("Response from API:", response.data);
+    } catch (error) {
+      console.error("Error creating category:", error);
+    }
+  };
+
+  const mutation = useMutation(postRequest);
+
+  return { mutation };
+};

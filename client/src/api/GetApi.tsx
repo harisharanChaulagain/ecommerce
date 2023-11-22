@@ -14,3 +14,17 @@ const fetchCategoryData = async (): Promise<any> => {
 export const useCategory = () => {
   return useQuery<any>("categoryData", fetchCategoryData);
 };
+
+const fetchProductData = async (): Promise<any> => {
+  try {
+    const response = await axios.get("http://localhost:3001/products");
+    console.log("Response from API:", response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch products data from API");
+  }
+};
+
+export const useProduct = () => {
+  return useQuery<any>("productData", fetchProductData);
+};

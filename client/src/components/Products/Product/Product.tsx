@@ -1,16 +1,27 @@
 import React from "react";
-import ProductImage from "../../../assets/iphone.png";
 import "./Product.scss";
 
-const Product = () => {
+interface ProductProps {
+  product: {
+    id: string;
+    name: string;
+    price: number;
+    image: string;
+  };
+}
+
+const Product: React.FC<ProductProps> = ({ product }) => {
   return (
     <div className="product-card">
       <div className="thumbnail">
-        <img src={ProductImage} alt="product image" />
+        <img
+          src={`../../../../public/product/${product.image.split("/")[2]}`}
+          alt="product image"
+        />
       </div>
       <div className="prod-details">
-        <span className="name">Iphone 14</span>
-        <span className="price">R.S.150000</span>
+        <span className="name">{product.name}</span>
+        <span className="price">R.S. {product.price}</span>
       </div>
     </div>
   );

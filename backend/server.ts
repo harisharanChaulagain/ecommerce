@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import categoryRoutes from "./routes/categoryRoutes";
+import productRoutes from "./routes/productRoutes";
 require("dotenv").config();
 import fileUpload from "express-fileupload";
 
@@ -27,6 +28,7 @@ mongoose
 
     // Use category routes
     app.use(categoryRoutes);
+    app.use(productRoutes);
 
     // Start Server
     app.listen(PORT, () => {
