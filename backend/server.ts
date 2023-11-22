@@ -2,19 +2,21 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import categoryRoutes from "./routes/categoryRoutes";
+require("dotenv").config();
+import fileUpload from "express-fileupload";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const MONGODB_URI: any = process.env.MONGODB_URI;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(fileUpload());
 
 // MongoDB Connection
 mongoose
-  .connect(
-    "mongodb+srv://chaulagaihari12345:r7mq$2Sc.KSaZ@ecommerce.rlyi5ue.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect(MONGODB_URI)
   .then(() => {
     console.log("Connected to MongoDB");
 
