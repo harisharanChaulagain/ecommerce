@@ -6,7 +6,6 @@ import { UploadedFile } from "express-fileupload";
 export const getAllCategories = async (req: Request, res: Response) => {
   try {
     const categories = await category.find();
-    console.log("Categories from MongoDB:", categories);
     res.json(categories);
   } catch (error) {
     console.error(error);
