@@ -11,6 +11,7 @@ import DropDownItem from "./DropDownItem/DropDownItem";
 import { Context } from "../../utils/context";
 import NewCategory from "../Category/NewCategory/NewCategory";
 import NewProduct from "../Products/NewProduct/NewProduct";
+import logo from "../../../public/logo.png";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -86,7 +87,10 @@ const Header = () => {
               Add New <FaAngleDown />
             </li>
           </ul>
-          <div className="center">Hamro Bazar</div>
+          <div className="center">
+            <img src={logo} alt="logo" style={{ height: "30px" }} />
+            Hamro Bazar
+          </div>
           <div className="right">
             <TbSearch onClick={() => setShowSearch(true)} />
             <AiOutlineHeart />
