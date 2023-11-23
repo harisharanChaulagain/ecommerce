@@ -21,18 +21,34 @@ const Newsletter = () => {
           Will be used in accordance with our Privacy Policy
         </div>
         <div className="social-icons">
-          <div className="icon">
+          <a
+            href="https://www.facebook.com/harisharan.chaulagain.733/"
+            target="_blank"
+            className="icon"
+          >
             <FaFacebookF size={14} />
-          </div>
-          <div className="icon">
+          </a>
+          <a
+            href="https://twitter.com/Harisharan1221"
+            target="_blank"
+            className="icon"
+          >
             <FaTwitter size={14} />
-          </div>
-          <div className="icon">
+          </a>
+          <a
+            href="https://www.instagram.com/harisharanchaulagai/"
+            target="_blank"
+            className="icon"
+          >
             <FaInstagram size={14} />
-          </div>
-          <div className="icon">
+          </a>
+          <a
+            href="https://www.linkedin.com/in/hari-sharan-chaulagain-592b4225b/"
+            target="_blank"
+            className="icon"
+          >
             <FaLinkedinIn size={14} />
-          </div>
+          </a>
         </div>
       </div>
     </div>
