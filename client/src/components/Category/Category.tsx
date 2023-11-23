@@ -18,7 +18,11 @@ const Category = () => {
     <div className="category-main-content">
       <div className="layout">
         <div className="category-title">Category Title</div>
-        <Products headingText={""} innerPage={true} products={productData} />
+        <Products
+          headingText={"Category Title"}
+          innerPage={true}
+          products={productData}
+        />
       </div>
     </div>
   );
