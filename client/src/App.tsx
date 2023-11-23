@@ -7,12 +7,15 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
 import AppContext from "./utils/context";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <AppContext>
         <Header />
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/category/:id" element={<Category />} />
