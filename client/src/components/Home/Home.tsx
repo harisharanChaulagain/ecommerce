@@ -4,6 +4,7 @@ import Banner from "./Banner/Banner";
 import Category from "./Category/Category";
 import Products from "../Products/Products";
 import { useProduct } from "../../api/GetApi";
+import ScrollUpButton from "./ScrollUpButton/ScrollUpButton";
 
 const Home = () => {
   const { data: productData } = useProduct();
@@ -21,6 +22,7 @@ const Home = () => {
           />
         </div>
       </div>
+      <ScrollUpButton />
     </div>
   );
 };
