@@ -1,40 +1,54 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./NewCategory.scss";
 import { MdClose } from "react-icons/md";
 import { Context } from "../../../utils/context";
 import { usePostCategory } from "../../../api/PostApi";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { toast } from "react-toastify";
 
 const NewCategory = () => {
   const { setNewCategory }: any = useContext(Context);
   const { mutation } = usePostCategory();
 
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryImage, setCategoryImage] = useState<File | null>(null);
+  const formik = useFormik({
+    initialValues: {
+      categoryName: "",
+      categoryImage: null,
+    },
+    validationSchema: Yup.object({
+      categoryName: Yup.string()
+        .min(3, "Product Name must be at least 3 characters")
+        .required("Product Name is required"),
+      categoryImage: Yup.mixed().required("Image is required"),
+    }),
+
+    onSubmit: async (values, { resetForm }) => {
+      const formData = new FormData();
+      formData.append("name", values.categoryName);
+      if (values.categoryImage) {
+        formData.append("image", values.categoryImage);
+      }
+      try {
+        await mutation.mutate(formData);
+        toast.success("Category added successfully!");
+        resetForm();
+        setNewCategory(false);
+      } catch (error) {
+        console.error("Error creating category:", error);
+      }
+    },
+  });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setCategoryImage(e.target.files[0]);
-    }
-  };
-
-  const handleSave = async () => {
-    const formData = new FormData();
-    formData.append("name", categoryName);
-    if (categoryImage) {
-      formData.append("image", categoryImage);
-    }
-
-    try {
-      await mutation.mutate(formData);
-      console.log("Category created!");
-    } catch (error) {
-      console.error("Error creating category:", error);
+      formik.setFieldValue("categoryImage", e.target.files[0]);
     }
   };
 
   return (
     <div className="new-category-overlay">
-      <div className="new-category-main">
+      <form className="new-category-main" onSubmit={formik.handleSubmit}>
         <div className=" main-text">
           <span>Add New Category</span>
           <MdClose
@@ -43,15 +57,19 @@ const NewCategory = () => {
           />
         </div>
         <div>
-          <div>
+          <div className="mb-20">
             <div>Category Name</div>
             <input
               type="text"
               autoFocus
               placeholder="Add New Category"
-              value={categoryName}
-              onChange={(e) => setCategoryName(e.target.value)}
+              name="categoryName"
+              value={formik.values.categoryName}
+              onChange={formik.handleChange}
             />
+            {formik.touched.categoryName && formik.errors.categoryName ? (
+              <div className="error">{formik.errors.categoryName}</div>
+            ) : null}
           </div>
           <div>
             <div>Image</div>
@@ -60,14 +78,15 @@ const NewCategory = () => {
               accept=".png, .jpeg, .jpg"
               onChange={handleImageChange}
             />
+            {formik.touched.categoryImage && formik.errors.categoryImage ? (
+              <div className="error">{formik.errors.categoryImage}</div>
+            ) : null}
           </div>
         </div>
         <div className="button-main">
-          <button className="save-btn" onClick={handleSave}>
-            Save
-          </button>
+          <button className="save-btn">Save</button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
