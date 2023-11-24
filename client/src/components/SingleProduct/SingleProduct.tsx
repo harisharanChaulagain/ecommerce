@@ -8,26 +8,42 @@ import {
   FaPinterest,
 } from "react-icons/fa";
 import RelatedProducts from "./RelatedProducts/RelatedProducts";
-import iphone from "../../assets/iphone.png";
 import "./SingleProduct.scss";
+import { useParams } from "react-router-dom";
+import { useProduct } from "../../api/GetApi";
+
+interface Product {
+  _id: string;
+  name: string;
+  category: string;
+  units: number;
+  price: number;
+}
 
 const SingleProduct = () => {
+  const { id } = useParams();
+  const { data: productData } = useProduct();
+
+  const selectedProduct = productData.find(
+    (product: Product) => product._id === id
+  );
+
   return (
     <div className="single-product-main-content">
       <div className="layout">
         <div className="single-product-page">
           <div className="left">
-            <img src={iphone} alt="img" />
+            <img
+              src={`../../../../public/product/${
+                selectedProduct.image.split("/")[2]
+              }`}
+              alt="product image"
+            />
           </div>
           <div className="right">
-            <span className="name">Iphone</span>
-            <span className="price">R.S.435343</span>
-            <span className="desc">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Dignissimos reiciendis amet dolorum hic deleniti doloremque
-              tenetur non exercitationem autem. Nostrum nihil vitae quae
-              distinctio similique quas sequi quis numquam earum?
-            </span>
+            <span className="name">{selectedProduct.name}</span>
+            <span className="price">&#8377; {selectedProduct.price}</span>
+            <span className="desc">{selectedProduct.description}</span>
             <div className="cart-buttons">
               <div className="quantity-buttons">
                 <span>-</span>
