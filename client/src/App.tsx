@@ -9,6 +9,7 @@ import SingleProduct from "./components/SingleProduct/SingleProduct";
 import AppContext from "./utils/context";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScrollUpButton from "./components/ScrollUpButton/ScrollUpButton";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         </Routes>
         <Newsletter />
         <Footer />
+        <ScrollUpButton />
       </AppContext>
     </BrowserRouter>
   );
