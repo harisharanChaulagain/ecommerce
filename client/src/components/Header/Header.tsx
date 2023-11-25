@@ -23,6 +23,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dropdownRef = useRef<any>(null);
   const context = useContext<any>(Context);
+  const { productQuantities }: any = useContext(Context);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -110,7 +111,9 @@ const Header = () => {
             <AiOutlineHeart />
             <span className="cart-icon" onClick={() => setShowCart(true)}>
               <CgShoppingCart />
-              <span>10</span>
+              {productQuantities.length > 0 && (
+                <span>{productQuantities.length}</span>
+              )}
             </span>
           </div>
         </div>
