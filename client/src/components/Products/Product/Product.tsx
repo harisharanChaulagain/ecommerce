@@ -16,7 +16,10 @@ const Product: React.FC<ProductProps> = ({ product }) => {
   return (
     <div
       className="product-card"
-      onClick={() => navigate(`/product/${product._id}`)}
+      onClick={() => {
+        navigate(`/product/${product._id}`);
+        window.scrollTo(0, 0);
+      }}
     >
       <div className="thumbnail">
         <img

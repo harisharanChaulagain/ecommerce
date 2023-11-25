@@ -76,9 +76,23 @@ const Header = () => {
       <div className={`main-header ${scrolled ? "sticky-header" : ""}`}>
         <div className="header-content">
           <ul className="left">
-            <li onClick={() => navigate("/")}>Home</li>
+            <li
+              onClick={() => {
+                navigate("/");
+                window.scrollTo(0, 0);
+              }}
+            >
+              Home
+            </li>
             <li onClick={handleAboutClick}>About</li>
-            <li onClick={() => navigate("/category/:id")}>Categories</li>
+            <li
+              onClick={() => {
+                navigate("/category/:id");
+                window.scrollTo(0, 0);
+              }}
+            >
+              Categories
+            </li>
             <li
               className="dropdown-item"
               onClick={handleDropdownClick}
