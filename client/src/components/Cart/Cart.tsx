@@ -5,14 +5,43 @@ import { BsCartX } from "react-icons/bs";
 import CartItem from "./CartItem/CartItem";
 import { Context } from "../../utils/context";
 import { useProduct } from "../../api/GetApi";
+import { useNavigate } from "react-router-dom";
 
 interface ShowCartProps {
   setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
+  const navigate = useNavigate();
   const { data: productData } = useProduct();
-  const { productQuantities, productIds }: any = useContext(Context);
+  const {
+    productQuantities,
+    productIds,
+    setProductQuantities,
+    setProductIds,
+  }: any = useContext(Context);
+
+  const total = productIds.reduce(
+    (acc: number, productId: string, index: number) => {
+      const selectedProduct = productData.find(
+        (product: any) => product._id === productId
+      );
+      const productPrice = selectedProduct ? selectedProduct.price : 0;
+      const quantity = productQuantities[index];
+      return acc + productPrice * quantity;
+    },
+    0
+  );
+
+  const handleRemoveProduct = (index: number) => {
+    const newProductQuantities = [...productQuantities];
+    const newProductIds = [...productIds];
+    newProductQuantities.splice(index, 1);
+    newProductIds.splice(index, 1);
+    setProductQuantities(newProductQuantities);
+    setProductIds(newProductIds);
+  };
+
   const cartItems = productIds.map((productId: string, index: number) => {
     const selectedProduct = productData.find(
       (product: any) => product._id === productId
@@ -24,6 +53,7 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
         name={selectedProduct.name}
         quantity={productQuantities[index]}
         price={selectedProduct.price}
+        onRemove={() => handleRemoveProduct(index)}
       />
     );
   });
@@ -43,7 +73,15 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
           <div className="empty-cart">
             <BsCartX />
             <span>No products in the cart</span>
-            <button className="return-cta">RETURN TO SHOP</button>
+            <button
+              className="return-cta"
+              onClick={() => {
+                navigate("/");
+                setShowCart(false);
+              }}
+            >
+              RETURN TO SHOP
+            </button>
           </div>
         ) : (
           <>
@@ -51,7 +89,7 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
             <div className="cart-footer">
               <div className="subtotal">
                 <span className="text">Subtotal:</span>
-                <span className="text total">&#8377;13232</span>
+                <span className="text total">&#8377;{total}</span>
               </div>
               <div className="button">
                 <button className="checkout-cta">Checkout</button>

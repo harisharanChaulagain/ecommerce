@@ -2,7 +2,13 @@ import React from "react";
 import "./CartItem.scss";
 import { MdClose } from "react-icons/md";
 
-const CartItem: React.FC<any> = ({ image, name, quantity, price }) => {
+const CartItem: React.FC<any> = ({
+  image,
+  name,
+  quantity,
+  price,
+  onRemove,
+}) => {
   return (
     <div className="cart-products">
       <div className="cart-product">
@@ -14,7 +20,7 @@ const CartItem: React.FC<any> = ({ image, name, quantity, price }) => {
         </div>
         <div className="prod-details">
           <span className="name">{name}</span>
-          <MdClose className="close-btn" />
+          <MdClose className="close-btn" onClick={() => onRemove()} />
           <div className="quantity-buttons">
             <span>-</span>
             <span>{quantity}</span>
