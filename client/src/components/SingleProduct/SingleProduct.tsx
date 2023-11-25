@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import {
   FaFacebookF,
   FaTwitter,
@@ -11,6 +11,7 @@ import RelatedProducts from "./RelatedProducts/RelatedProducts";
 import "./SingleProduct.scss";
 import { useParams } from "react-router-dom";
 import { useProduct } from "../../api/GetApi";
+import { Context } from "../../utils/context";
 
 interface Product {
   _id: string;
@@ -23,10 +24,32 @@ interface Product {
 const SingleProduct = () => {
   const { id } = useParams();
   const { data: productData } = useProduct();
+  const [quantity, setQuantity] = useState(1);
+  const { setProductQuantities }: any = useContext(Context);
+  const { setProductIds }: any = useContext(Context);
 
   const selectedProduct = productData.find(
     (product: Product) => product._id === id
   );
+
+  const decrement = () => {
+    setQuantity((prevState: any) => {
+      if (prevState === 1) return 1;
+      return prevState - 1;
+    });
+  };
+
+  const increment = () => {
+    setQuantity((prevState: any) => prevState + 1);
+  };
+
+  const addToCart = () => {
+    setProductQuantities((prevQuantities: any) => [
+      ...prevQuantities,
+      quantity,
+    ]);
+    setProductIds((prevIds: any) => [...prevIds, selectedProduct._id]);
+  };
 
   return (
     <div className="single-product-main-content">
@@ -46,11 +69,11 @@ const SingleProduct = () => {
             <span className="desc">{selectedProduct.description}</span>
             <div className="cart-buttons">
               <div className="quantity-buttons">
-                <span>-</span>
-                <span>3</span>
-                <span>+</span>
+                <span onClick={decrement}>-</span>
+                <span>{quantity}</span>
+                <span onClick={increment}>+</span>
               </div>
-              <button className="add-to-cart-button">
+              <button className="add-to-cart-button" onClick={addToCart}>
                 <FaCartPlus size={20} />
                 ADD TO CART
               </button>
