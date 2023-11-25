@@ -87,7 +87,7 @@ const Header = () => {
               Add New <FaAngleDown />
             </li>
           </ul>
-          <div className="center">
+          <div className="center" onClick={() => navigate("/")}>
             <img src={logo} alt="logo" style={{ height: "30px" }} />
             Hamro Bazar
           </div>
