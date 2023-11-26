@@ -9,17 +9,20 @@ const Khalti = () => {
   const navigate = useNavigate();
   let checkout = new KhaltiCheckout(config);
   return (
-    <div className="khalti-main">
-      <span className="close-container" onClick={() => navigate("/")}>
-        <MdClose />
-        <span>Cancel</span>
-      </span>
-      <button
-        onClick={() => checkout.show({ amount: 20000 })}
-        className="pay-btn"
-      >
-        Pay Via Khalti
-      </button>
+    <div className="main">
+      <div className="opac-layer"></div>
+      <div className="khalti-main">
+        <span className="close-container" onClick={() => navigate("/")}>
+          <MdClose />
+          <span>Cancel</span>
+        </span>
+        <button
+          onClick={() => checkout.show({ amount: 20000 })}
+          className="pay-btn"
+        >
+          Pay Via Khalti
+        </button>
+      </div>
     </div>
   );
 };
