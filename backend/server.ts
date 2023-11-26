@@ -5,6 +5,7 @@ import categoryRoutes from "./routes/categoryRoutes";
 import productRoutes from "./routes/productRoutes";
 require("dotenv").config();
 import fileUpload from "express-fileupload";
+import paymentRoutes from "./routes/paymentRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -29,6 +30,7 @@ mongoose
     // Use category routes
     app.use(categoryRoutes);
     app.use(productRoutes);
+    app.use(paymentRoutes);
 
     // Start Server
     app.listen(PORT, () => {

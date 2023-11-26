@@ -93,7 +93,15 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
                 <span className="text total">&#8377;{total}</span>
               </div>
               <div className="button">
-                <button className="checkout-cta">Checkout</button>
+                <button
+                  className="checkout-cta"
+                  onClick={() => {
+                    navigate("/payment/:id");
+                    setShowCart(false);
+                  }}
+                >
+                  Checkout
+                </button>
               </div>
             </div>
           </>
