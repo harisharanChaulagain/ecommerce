@@ -46,3 +46,26 @@ export const createProduct = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+//product search
+export const searchProducts = async (req: Request, res: Response) => {
+  try {
+    const { productName } = req.query;
+
+    if (!productName) {
+      return res
+        .status(400)
+        .json({ error: "Product name is required for search." });
+    }
+
+    // Perform a case-insensitive search for products
+    const products = await Product.find({
+      name: { $regex: new RegExp(productName as string, "i") },
+    });
+
+    res.json(products);
+  } catch (error) {
+    console.error("Error searching products:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
