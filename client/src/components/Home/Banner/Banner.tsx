@@ -1,8 +1,12 @@
 import React from "react";
 import "./Banner.scss";
-import BannerImg from "../../../assets/banner.png";
+import { useProduct } from "../../../api/GetApi";
+import { useNavigate } from "react-router";
 
 const Banner = () => {
+  const { data: productData } = useProduct();
+  const navigate = useNavigate();
+
   return (
     <div
       className="hero-banner"
@@ -17,10 +21,26 @@ const Banner = () => {
           </p>
           <div className="ctas">
             <div className="banner-cta">Read More...</div>
-            <div className="banner-cta v2">Shop Now</div>
+            <div
+              className="banner-cta v2"
+              onClick={() => {
+                navigate(`/product/${productData[0]._id}`);
+                window.scrollTo(0, 0);
+              }}
+            >
+              Shop Now
+            </div>
           </div>
         </div>
-        <img className="banner-img" src={BannerImg} alt="Banner Image" />
+        {productData && productData.length > 0 && (
+          <img
+            className="banner-img"
+            src={`../../../../public/product/${
+              productData[0].image.split("/")[2]
+            }`}
+            alt="Banner Image"
+          />
+        )}
       </div>
     </div>
   );

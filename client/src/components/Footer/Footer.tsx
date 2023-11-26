@@ -1,7 +1,7 @@
 import React from "react";
 import "./Footer.scss";
 import { FaLocationArrow, FaMobileAlt, FaEnvelope } from "react-icons/fa";
-import PaymentImage from "../../assets/payments.png";
+import PaymentImage from "../../assets/khalti_logo.png";
 
 const Footer = () => {
   return (
@@ -56,7 +56,11 @@ const Footer = () => {
       <div className="bottom-bar">
         <div className="bottom-bar-content">
           <span className="text">© 2023 Hamro Bazar</span>
-          <img src={PaymentImage} alt="payment method img" />
+          <img
+            src={PaymentImage}
+            alt="payment method img"
+            style={{ height: "40px" }}
+          />
         </div>
       </div>
     </div>
