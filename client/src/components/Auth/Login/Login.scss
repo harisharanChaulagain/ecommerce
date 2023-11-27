@@ -1,0 +1,57 @@
+@import "../../../css-config/mixins.scss";
+.login-main {
+  margin: 20px 10px;
+  @include md {
+    margin: 40px 300px;
+  }
+  .top-section {
+    text-align: center;
+    margin-bottom: 10px;
+    @include md {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    span {
+      color: #5755d6;
+      cursor: pointer;
+    }
+  }
+  .input-fields {
+    background: #fff;
+    @include md {
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+    }
+    .password-toggle {
+      position: absolute;
+      top: 49%;
+      transform: translateY(-50%);
+      right: 330px;
+      cursor: pointer;
+    }
+    button {
+      margin: auto;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      text-transform: uppercase;
+      background-color: #5755d6;
+      color: white;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+    }
+  }
+}

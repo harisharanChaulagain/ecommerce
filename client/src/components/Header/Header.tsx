@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { TbSearch } from "react-icons/tb";
 import { CgShoppingCart } from "react-icons/cg";
-import { AiOutlineHeart } from "react-icons/ai";
+import { FaUser } from "react-icons/fa";
 import Search from "./Search/Search";
 import Cart from "../Cart/Cart";
 import "./Header.scss";
@@ -108,7 +108,8 @@ const Header = () => {
           </div>
           <div className="right">
             <TbSearch onClick={() => setShowSearch(true)} />
-            <AiOutlineHeart />
+            <FaUser onClick={() => navigate("/login")} />
+            <div onClick={() => navigate("/register")}>SignUp</div>
             <span className="cart-icon" onClick={() => setShowCart(true)}>
               <CgShoppingCart />
               {productQuantities.length > 0 && (

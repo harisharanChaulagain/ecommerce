@@ -11,6 +11,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ScrollUpButton from "./components/ScrollUpButton/ScrollUpButton";
 import Khalti from "./components/Khalti/Khalti";
+import Login from "./components/Auth/Login/Login";
+import Signup from "./components/Auth/Signup/Signup";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +25,8 @@ const App: React.FC = () => {
           <Route path="/category/:id" element={<Category />} />
           <Route path="/product/:id" element={<SingleProduct />} />
           <Route path="/payment/:id" element={<Khalti />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Signup />} />
         </Routes>
         <Newsletter />
         <Footer />
