@@ -10,14 +10,13 @@
   transform: translateY(100%);
   animation: slideSearchWindow 0.3s ease forwards;
   .form-field {
-    // width: 100%;
     display: flex;
     justify-content: center;
     padding: 10px 50px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     position: relative;
     @include md {
-      padding: 20px 0;
+      padding: 0;
     }
     input {
       width: 100%;
@@ -31,7 +30,7 @@
       border: none;
       text-transform: uppercase;
       @include md {
-        font-size: 40px;
+        font-size: 24px;
         height: 80px;
       }
     }
@@ -44,61 +43,56 @@
       cursor: pointer;
       @include md {
         right: 40px;
-        font-size: 50px;
+        font-size: 35px;
       }
     }
   }
   .search-result-content {
     max-width: calc(100% - 20px);
     margin: 0 auto;
+    height: 90vh;
+    overflow-y: auto;
     @include md {
       max-width: 800px;
     }
-    .search-results {
-      height: calc(100vh - 110px);
-      overflow: auto;
-      margin: 20px 0;
-      @include md {
-        height: calc(100vh - 150px);
-      }
-      .search-result-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        .img-container {
-          background-color: rgba(0, 0, 0, 0.05);
-          width: 60px;
-          height: 60px;
-          flex-shrink: 0;
-          img {
-            width: 100%;
-            height: 100%;
-          }
+    .search-result-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      margin-bottom: 10px;
+      .img-container {
+        background-color: rgba(0, 0, 0, 0.05);
+        width: 60px;
+        height: 60px;
+        flex-shrink: 0;
+        img {
+          width: 100%;
+          height: 100%;
         }
-        .prod-details {
+      }
+      .prod-details {
+        overflow: hidden;
+        .name {
+          text-overflow: ellipsis;
+          white-space: nowrap;
           overflow: hidden;
-          .name {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            font-size: 16px;
-            line-height: 1;
-            margin-bottom: 10px;
-            font-weight: 600;
-            display: block;
-          }
-          .desc {
-            font-size: 14px;
-            line-height: 1;
-            display: block;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            color: rgba(0, 0, 0, 0.5);
-          }
+          font-size: 16px;
+          line-height: 1;
+          margin-bottom: 10px;
+          font-weight: 600;
+          display: block;
+        }
+        .desc {
+          font-size: 14px;
+          line-height: 1;
+          display: block;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          color: rgba(0, 0, 0, 0.5);
         }
       }
     }

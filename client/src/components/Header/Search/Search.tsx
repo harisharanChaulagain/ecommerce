@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
 import "./Search.scss";
-import prod from "../../../assets/iphone.png";
 import { useSearchProduct } from "../../../api/GetApi";
 
 interface SearchProps {
@@ -15,10 +14,6 @@ const Search: React.FC<SearchProps> = ({ setShowSearch }) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
-  useEffect(() => {
-    console.log("Data from API to check:", data);
-  }, [data]);
-
   return (
     <div className="search-modal">
       <div className="form-field">
@@ -33,16 +28,19 @@ const Search: React.FC<SearchProps> = ({ setShowSearch }) => {
       <div className="search-result-content">
         {Array.isArray(data) &&
           data.length > 0 &&
-          data.map((product: any) => (
-            <div className="search-results">
-              <div className="search-result-item">
-                <div className="img-container">
-                  <img src={prod} alt="img" />
-                </div>
-                <div className="prod-details">
-                  <span className="name">{product.name}</span>
-                  <span className="desc">{product.description}</span>
-                </div>
+          data.map((product: any, index: number) => (
+            <div className="search-result-item" key={index}>
+              <div className="img-container">
+                <img
+                  src={`../../../../public/product/${
+                    product.image.split("/")[2]
+                  }`}
+                  alt="img"
+                />
+              </div>
+              <div className="prod-details">
+                <span className="name">{product.name}</span>
+                <span className="desc">{product.description}</span>
               </div>
             </div>
           ))}
