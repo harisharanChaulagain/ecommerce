@@ -20,9 +20,8 @@ const Banner = () => {
             Endless Possibilities at Hamro Bazar.
           </p>
           <div className="ctas">
-            <div className="banner-cta">Read More...</div>
             <div
-              className="banner-cta v2"
+              className="banner-cta"
               onClick={() => {
                 navigate(`/product/${productData[0]._id}`);
                 window.scrollTo(0, 0);
