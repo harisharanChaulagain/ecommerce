@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
 import "./Search.scss";
 import { useSearchProduct } from "../../../api/GetApi";
+import { useNavigate } from "react-router";
 
 interface SearchProps {
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,6 +11,7 @@ interface SearchProps {
 const Search: React.FC<SearchProps> = ({ setShowSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const { data } = useSearchProduct(searchTerm);
+  const navigate = useNavigate();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -29,7 +31,15 @@ const Search: React.FC<SearchProps> = ({ setShowSearch }) => {
         {Array.isArray(data) &&
           data.length > 0 &&
           data.map((product: any, index: number) => (
-            <div className="search-result-item" key={index}>
+            <div
+              className="search-result-item"
+              key={index}
+              onClick={() => {
+                navigate(`/product/${product._id}`);
+                window.scrollTo(0, 0);
+                setShowSearch(false);
+              }}
+            >
               <div className="img-container">
                 <img
                   src={`../../../../public/product/${
