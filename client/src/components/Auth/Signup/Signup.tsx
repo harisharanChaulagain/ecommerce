@@ -27,9 +27,25 @@ const Signup = () => {
       fullName: Yup.string()
         .min(3, "Name must be at least 3 characters")
         .required("Name is required"),
-      email: Yup.string().required("Email is required"),
-      dob: Yup.string().required("DOB is required"),
-      password: Yup.string().required("Password is required"),
+
+      email: Yup.string()
+        .email("Invalid email format")
+        .required("Email is required"),
+
+      dob: Yup.string()
+        .matches(
+          /^(19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
+          "Invalid date format. Use MM-DD-YYYY."
+        )
+        .required("DOB is required"),
+
+      password: Yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+          "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+        )
+        .required("Password is required"),
     }),
 
     onSubmit: async (values, { resetForm }) => {
@@ -59,7 +75,7 @@ const Signup = () => {
       </div>
       <form className="form-fields" onSubmit={formik.handleSubmit}>
         <div className="input-fields">
-          <div>
+          <div className="mb-20">
             <label>Full Name:</label>
             <input
               type="text"
@@ -67,8 +83,11 @@ const Signup = () => {
               value={formik.values.fullName}
               onChange={formik.handleChange}
             />
+            {formik.touched.fullName && formik.errors.fullName ? (
+              <div className="error">{formik.errors.fullName}</div>
+            ) : null}
           </div>
-          <div>
+          <div className="mb-20">
             <label>Email:</label>
             <input
               type="email"
@@ -76,10 +95,13 @@ const Signup = () => {
               value={formik.values.email}
               onChange={formik.handleChange}
             />
+            {formik.touched.email && formik.errors.email ? (
+              <div className="error">{formik.errors.email}</div>
+            ) : null}
           </div>
         </div>
         <div className="input-fields">
-          <div>
+          <div className="mb-20">
             <label>Date of Birth:</label>
             <input
               type="date"
@@ -87,8 +109,11 @@ const Signup = () => {
               value={formik.values.dob}
               onChange={formik.handleChange}
             />
+            {formik.touched.dob && formik.errors.dob ? (
+              <div className="error">{formik.errors.dob}</div>
+            ) : null}
           </div>
-          <div>
+          <div className="mb-20">
             <label>Password</label>
             <input
               type={showPassword ? "text" : "password"}
@@ -96,6 +121,9 @@ const Signup = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
             />
+            {formik.touched.password && formik.errors.password ? (
+              <div className="error">{formik.errors.password}</div>
+            ) : null}
             <div className="password-toggle" onClick={handleTogglePassword}>
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </div>
