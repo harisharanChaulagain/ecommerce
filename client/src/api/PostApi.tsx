@@ -85,10 +85,10 @@ export const useUserLogin = () => {
           },
         }
       );
-
-      console.log("Response from API:", response.data);
+      return response;
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Error logging in user:", error);
+      throw error;
     }
   };
 

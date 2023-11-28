@@ -58,6 +58,8 @@ const Signup = () => {
         await mutation.mutateAsync(formData);
         toast.success("User created successfully!");
         resetForm();
+        navigate("/login");
+        window.scrollTo(0, 0);
       } catch (error) {
         console.error("Signup error:", error);
       }
