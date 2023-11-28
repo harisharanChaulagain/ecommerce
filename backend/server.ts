@@ -6,13 +6,15 @@ import productRoutes from "./routes/productRoutes";
 require("dotenv").config();
 import fileUpload from "express-fileupload";
 import paymentRoutes from "./routes/paymentRoutes";
+import userRoutes from "./routes/userRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const MONGODB_URI: any = process.env.MONGODB_URI;
 
 // Middleware
-app.use(cors());
+// app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 app.use(fileUpload());
 
@@ -27,10 +29,11 @@ mongoose
       res.send("Welcome to the eCommerce backend!");
     });
 
-    // Use category routes
+    // routes
     app.use(categoryRoutes);
     app.use(productRoutes);
     app.use(paymentRoutes);
+    app.use(userRoutes);
 
     // Start Server
     app.listen(PORT, () => {
