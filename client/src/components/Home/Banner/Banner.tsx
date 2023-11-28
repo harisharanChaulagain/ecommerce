@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Banner.scss";
 import { useProduct } from "../../../api/GetApi";
 import { useNavigate } from "react-router";
@@ -6,6 +6,31 @@ import { useNavigate } from "react-router";
 const Banner = () => {
   const { data: productData } = useProduct();
   const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === productData.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? productData.length - 1 : prevIndex - 1
+    );
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === productData.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [productData.length]);
 
   return (
     <div
@@ -23,7 +48,7 @@ const Banner = () => {
             <div
               className="banner-cta"
               onClick={() => {
-                navigate(`/product/${productData[0]._id}`);
+                navigate(`/product/${productData[currentImageIndex]._id}`);
                 window.scrollTo(0, 0);
               }}
             >
@@ -32,13 +57,21 @@ const Banner = () => {
           </div>
         </div>
         {productData && productData.length > 0 && (
-          <img
-            className="banner-img"
-            src={`../../../../public/product/${
-              productData[0].image.split("/")[2]
-            }`}
-            alt="Banner Image"
-          />
+          <div className="image-container">
+            <button className="prev-button" onClick={handlePrevImage}>
+              {"<"}
+            </button>
+            <img
+              className="banner-img"
+              src={`../../../../public/product/${
+                productData[currentImageIndex].image.split("/")[2]
+              }`}
+              alt="Banner Image"
+            />
+            <button className="next-button" onClick={handleNextImage}>
+              {">"}
+            </button>
+          </div>
         )}
       </div>
     </div>

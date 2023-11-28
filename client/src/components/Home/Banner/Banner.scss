@@ -18,21 +18,34 @@
       flex-direction: row;
       max-width: 1200px;
     }
-    .banner-img {
+    .image-container {
       position: relative;
-      z-index: 9;
-      width: 200px;
-      margin-bottom: 20px;
-      @include md {
-        width: 500px;
-        margin-right: 60px;
-        margin-top: 50px;
-        margin-bottom: 0px;
+      .prev-button {
+        position: absolute;
+        top: 50%;
+        cursor: pointer;
       }
-      @include xxl {
-        width: 600px;
-        margin-right: 0px;
-        margin-top: 0px;
+      .banner-img {
+        z-index: 9;
+        width: 200px;
+        margin-bottom: 20px;
+        margin-left: 15px;
+        @include md {
+          width: 500px;
+          margin-right: 60px;
+          margin-top: 50px;
+          margin-bottom: 0px;
+        }
+        @include xxl {
+          width: 600px;
+          margin-right: 0px;
+          margin-top: 0px;
+        }
+      }
+      .next-button {
+        position: absolute;
+        top: 50%;
+        cursor: pointer;
       }
     }
     .text-content {

@@ -70,6 +70,7 @@ const Header = () => {
 
   const handleDropdownClick = () => {
     setShowDropdown(!showDropdown);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -108,8 +109,20 @@ const Header = () => {
           </div>
           <div className="right">
             <TbSearch onClick={() => setShowSearch(true)} />
-            <FaUser onClick={() => navigate("/login")} />
-            <div onClick={() => navigate("/register")}>SignUp</div>
+            <FaUser
+              onClick={() => {
+                navigate("/login");
+                window.scrollTo(0, 0);
+              }}
+            />
+            <div
+              onClick={() => {
+                navigate("/register");
+                window.scrollTo(0, 0);
+              }}
+            >
+              SignUp
+            </div>
             <span className="cart-icon" onClick={() => setShowCart(true)}>
               <CgShoppingCart />
               {productQuantities.length > 0 && (
