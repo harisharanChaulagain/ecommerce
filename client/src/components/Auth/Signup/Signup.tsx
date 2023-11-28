@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SIgnup.scss";
+import "./Signup.scss";
 import { useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useUserCreate } from "../../../api/PostApi";
@@ -77,7 +77,7 @@ const Signup = () => {
       </div>
       <form className="form-fields" onSubmit={formik.handleSubmit}>
         <div className="input-fields">
-          <div className="mb-20">
+          <div className="mb-20 input-element">
             <label>Full Name:</label>
             <input
               type="text"
@@ -89,7 +89,7 @@ const Signup = () => {
               <div className="error">{formik.errors.fullName}</div>
             ) : null}
           </div>
-          <div className="mb-20">
+          <div className="mb-20 input-element">
             <label>Email:</label>
             <input
               type="email"
@@ -103,7 +103,7 @@ const Signup = () => {
           </div>
         </div>
         <div className="input-fields">
-          <div className="mb-20">
+          <div className="mb-20 input-element">
             <label>Date of Birth:</label>
             <input
               type="date"
@@ -115,21 +115,34 @@ const Signup = () => {
               <div className="error">{formik.errors.dob}</div>
             ) : null}
           </div>
-          <div className="mb-20">
+          <div className="mb-20 input-element">
             <label>Password</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-            />
-            {formik.touched.password && formik.errors.password ? (
-              <div className="error">{formik.errors.password}</div>
-            ) : null}
-            <div className="password-toggle" onClick={handleTogglePassword}>
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            <div>
+              <div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                />
+              </div>
+              <div
+                style={{
+                  position: "relative",
+                  bottom: "27px",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  paddingRight: "10px",
+                }}
+                onClick={handleTogglePassword}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
             </div>
           </div>
+          {formik.touched.password && formik.errors.password ? (
+            <div className="error">{formik.errors.password}</div>
+          ) : null}
         </div>
         <button>Sign Up</button>
       </form>

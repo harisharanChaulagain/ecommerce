@@ -80,18 +80,20 @@ const Login = () => {
         </div>
         <div>
           <label>Password:</label>
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-          />
+          <div className="password-input">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+            />
+            <div className="password-toggle" onClick={handleTogglePassword}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </div>
+          </div>
           {formik.touched.password && formik.errors.password ? (
             <div className="error">{formik.errors.password}</div>
           ) : null}
-          <div className="password-toggle" onClick={handleTogglePassword}>
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </div>
         </div>
         <button>Log In</button>
       </form>
