@@ -14,18 +14,37 @@ const Category = () => {
     return <div>Error fetching products from API</div>;
   }
 
+  const groupedProducts = groupProductsByCategory(productData);
+
   return (
     <div className="category-main-content">
       <div className="layout">
-        <div className="category-title">Category Title</div>
-        <Products
-          headingText={"Category Title"}
-          innerPage={true}
-          products={productData}
-        />
+        {Object.entries(groupedProducts).map(([category, products]) => (
+          <div key={category} id={category}>
+            <div className="category-title">{category}</div>
+            <Products
+              headingText={category}
+              innerPage={true}
+              products={products}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
+};
+
+const groupProductsByCategory = (products: any) => {
+  return products.reduce((acc: any, product: any) => {
+    const category = product.category;
+
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+
+    acc[category].push(product);
+    return acc;
+  }, {});
 };
 
 export default Category;

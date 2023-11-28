@@ -20,7 +20,7 @@ const Products: React.FC<ProductsProps> = ({
       {!innerPage && <div className="sec-heading">{headingText}</div>}
       <div className="products">
         {products.map((product: any) => (
-          <Product key={product.id} product={product} />
+          <Product key={product._id} product={product} />
         ))}
       </div>
     </div>

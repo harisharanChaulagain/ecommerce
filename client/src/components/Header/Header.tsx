@@ -103,7 +103,13 @@ const Header = () => {
               Add New <FaAngleDown />
             </li>
           </ul>
-          <div className="center" onClick={() => navigate("/")}>
+          <div
+            className="center"
+            onClick={() => {
+              navigate("/");
+              window.scrollTo(0, 0);
+            }}
+          >
             <img src={logo} alt="logo" style={{ height: "30px" }} />
             Hamro Bazar
           </div>

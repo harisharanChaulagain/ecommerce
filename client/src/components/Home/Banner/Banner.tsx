@@ -30,7 +30,7 @@ const Banner = () => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [productData.length]);
+  }, [productData?.length]);
 
   return (
     <div
