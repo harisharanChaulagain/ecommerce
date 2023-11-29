@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 
 const Khalti = () => {
   const navigate = useNavigate();
-  let checkout = new KhaltiCheckout(config);
+  let checkout = new KhaltiCheckout(config());
   return (
     <div className="main">
       <div className="opac-layer"></div>

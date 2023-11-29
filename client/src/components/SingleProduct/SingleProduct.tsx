@@ -82,7 +82,7 @@ const SingleProduct = () => {
             <div className="info-item">
               <span className="text-bold">
                 Category:
-                <span>Phone</span>
+                <span> {selectedProduct.category}</span>
               </span>
               <span className="text-bold">
                 Share:
