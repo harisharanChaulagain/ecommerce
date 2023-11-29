@@ -17,7 +17,10 @@ const Khalti = () => {
           <span>Cancel</span>
         </span>
         <button
-          onClick={() => checkout.show({ amount: 20000 })}
+          onClick={() => {
+            checkout.show({ amount: 20000 });
+            navigate("/");
+          }}
           className="pay-btn"
         >
           Pay Via Khalti
