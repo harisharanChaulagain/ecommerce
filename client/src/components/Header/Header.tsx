@@ -23,8 +23,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dropdownRef = useRef<any>(null);
   const context = useContext<any>(Context);
-  const { productQuantities, setProductQuantities, clearCart }: any =
-    useContext(Context);
+  const { productQuantities }: any = useContext(Context);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -68,11 +67,6 @@ const Header = () => {
       aboutSection.scrollIntoView({ behavior: "smooth" });
     }
   };
-  useEffect(() => {
-    if (clearCart) {
-      setProductQuantities(0);
-    }
-  }, [clearCart]);
 
   const handleDropdownClick = () => {
     setShowDropdown(!showDropdown);

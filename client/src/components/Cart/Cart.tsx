@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import "./Cart.scss";
 import { MdClose } from "react-icons/md";
 import { BsCartX } from "react-icons/bs";
@@ -20,7 +20,6 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
     setProductQuantities,
     setProductIds,
   }: any = useContext(Context);
-  const { clearCart }: any = useContext(Context);
 
   const total = productIds.reduce(
     (acc: number, productId: string, index: number) => {
@@ -42,14 +41,6 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
     setProductQuantities(newProductQuantities);
     setProductIds(newProductIds);
   };
-
-  //clear  cart after successful payment
-  useEffect(() => {
-    if (clearCart) {
-      setProductQuantities([]);
-      setProductIds([]);
-    }
-  }, [clearCart]);
 
   const cartItems = productIds.map((productId: string, index: number) => {
     const selectedProduct = productData.find(
