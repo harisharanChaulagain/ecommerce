@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   FaFacebookF,
   FaTwitter,
@@ -12,6 +12,7 @@ import "./SingleProduct.scss";
 import { useParams } from "react-router-dom";
 import { useProduct } from "../../api/GetApi";
 import { Context } from "../../utils/context";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   _id: string;
@@ -27,6 +28,7 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
   const { setProductQuantities }: any = useContext(Context);
   const { setProductIds }: any = useContext(Context);
+  const navigate = useNavigate();
 
   const selectedProduct = productData.find(
     (product: Product) => product._id === id
@@ -50,6 +52,16 @@ const SingleProduct = () => {
     ]);
     setProductIds((prevIds: any) => [...prevIds, selectedProduct._id]);
   };
+
+  useEffect(() => {
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   return (
     <div className="single-product-main-content">

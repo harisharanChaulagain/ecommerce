@@ -7,6 +7,7 @@ require("dotenv").config();
 import fileUpload from "express-fileupload";
 import paymentRoutes from "./routes/paymentRoutes";
 import userRoutes from "./routes/userRoutes";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,6 +18,7 @@ const MONGODB_URI: any = process.env.MONGODB_URI;
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 app.use(fileUpload());
+app.use(cookieParser());
 
 // MongoDB Connection
 mongoose

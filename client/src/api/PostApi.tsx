@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useMutation } from "react-query";
+import Cookies from "js-cookie";
 
 //create category
 export const usePostCategory = () => {
@@ -85,6 +86,8 @@ export const useUserLogin = () => {
           },
         }
       );
+      const token = response.data.token;
+      Cookies.set("token", token, { expires: 1 / 24 });
       return response;
     } catch (error) {
       console.error("Error logging in user:", error);
