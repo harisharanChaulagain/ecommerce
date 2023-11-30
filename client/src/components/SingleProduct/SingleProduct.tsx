@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   FaFacebookF,
   FaTwitter,
@@ -44,24 +44,22 @@ const SingleProduct = () => {
   const increment = () => {
     setQuantity((prevState: any) => prevState + 1);
   };
-
   const addToCart = () => {
-    setProductQuantities((prevQuantities: any) => [
-      ...prevQuantities,
-      quantity,
-    ]);
-    setProductIds((prevIds: any) => [...prevIds, selectedProduct._id]);
-  };
-
-  useEffect(() => {
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
       "$1"
     );
+
     if (!token) {
       navigate("/login");
+    } else {
+      setProductQuantities((prevQuantities: any) => [
+        ...prevQuantities,
+        quantity,
+      ]);
+      setProductIds((prevIds: any) => [...prevIds, selectedProduct._id]);
     }
-  }, [navigate]);
+  };
 
   return (
     <div className="single-product-main-content">
