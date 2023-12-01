@@ -56,7 +56,7 @@ const UserController = {
         maxAge: 60 * 60 * 1000,
       });
 
-      res.status(200).json({ message: "Login successful" });
+      res.status(200).json({ message: "Login successful", token });
     } catch (error) {
       console.error("Error logging in:", error);
       res.status(500).json({ error: "Internal Server Error" });

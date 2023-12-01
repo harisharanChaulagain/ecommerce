@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { TbSearch } from "react-icons/tb";
 import { CgShoppingCart } from "react-icons/cg";
@@ -73,6 +74,10 @@ const Header = () => {
     window.scrollTo(0, 0);
   };
 
+  const isLoggedIn = () => {
+    return Cookies.get("token") !== undefined;
+  };
+
   return (
     <>
       <div className={`main-header ${scrolled ? "sticky-header" : ""}`}>
@@ -121,14 +126,25 @@ const Header = () => {
                 window.scrollTo(0, 0);
               }}
             />
-            <div
-              onClick={() => {
-                navigate("/register");
-                window.scrollTo(0, 0);
-              }}
-            >
-              SignUp
-            </div>
+            {isLoggedIn() ? (
+              <div
+                onClick={() => {
+                  Cookies.remove("token");
+                  navigate("/");
+                }}
+              >
+                SignOut
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  navigate("/register");
+                  window.scrollTo(0, 0);
+                }}
+              >
+                SignUp
+              </div>
+            )}
             <span className="cart-icon" onClick={() => setShowCart(true)}>
               <CgShoppingCart />
               {productQuantities.length > 0 && (
