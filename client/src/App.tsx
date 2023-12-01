@@ -13,6 +13,7 @@ import ScrollUpButton from "./components/ScrollUpButton/ScrollUpButton";
 import Khalti from "./components/Khalti/Khalti";
 import Login from "./components/Auth/Login/Login";
 import Signup from "./components/Auth/Signup/Signup";
+import AdminLogin from "./components/Auth/Admin/AdminLogin";
 
 const App: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const App: React.FC = () => {
           <Route path="/payment/:id" element={<Khalti />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
+          <Route path="admin/login" element={<AdminLogin />} />
         </Routes>
         <Newsletter />
         <Footer />

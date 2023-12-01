@@ -99,3 +99,30 @@ export const useUserLogin = () => {
 
   return { mutation };
 };
+
+//admin login
+export const useAdminLogin = () => {
+  const postRequest = async (data: FormData) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/admins/login",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const adminToken = response.data.adminToken;
+      Cookies.set("adminToken", adminToken, { expires: 1 / 24 });
+      return response;
+    } catch (error) {
+      console.error("Error logging in user:", error);
+      throw error;
+    }
+  };
+
+  const mutation = useMutation(postRequest);
+
+  return { mutation };
+};
