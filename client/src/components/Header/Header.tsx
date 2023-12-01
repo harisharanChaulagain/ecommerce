@@ -6,6 +6,7 @@ import { CgShoppingCart } from "react-icons/cg";
 import { FaUser } from "react-icons/fa";
 import Search from "./Search/Search";
 import Cart from "../Cart/Cart";
+import { toast } from "react-toastify";
 import "./Header.scss";
 import { FaAngleDown } from "react-icons/fa";
 import DropDownItem from "./DropDownItem/DropDownItem";
@@ -24,7 +25,8 @@ const Header = () => {
   const navigate = useNavigate();
   const dropdownRef = useRef<any>(null);
   const context = useContext<any>(Context);
-  const { productQuantities }: any = useContext(Context);
+  const { productQuantities, setProductQuantities, setProductIds }: any =
+    useContext(Context);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -78,6 +80,14 @@ const Header = () => {
     return Cookies.get("token") !== undefined;
   };
 
+  const handleSignOut = () => {
+    Cookies.remove("token");
+    navigate("/");
+    setProductQuantities([]);
+    setProductIds([]);
+    toast.success("Log Out Successfully!");
+  };
+
   return (
     <>
       <div className={`main-header ${scrolled ? "sticky-header" : ""}`}>
@@ -127,13 +137,8 @@ const Header = () => {
               }}
             />
             {isLoggedIn() ? (
-              <div
-                onClick={() => {
-                  Cookies.remove("token");
-                  navigate("/");
-                }}
-              >
-                SignOut
+              <div onClick={handleSignOut} className="log-out">
+                Log Out
               </div>
             ) : (
               <div
@@ -141,8 +146,9 @@ const Header = () => {
                   navigate("/register");
                   window.scrollTo(0, 0);
                 }}
+                className="sign-up"
               >
-                SignUp
+                Sign Up
               </div>
             )}
             <span className="cart-icon" onClick={() => setShowCart(true)}>
