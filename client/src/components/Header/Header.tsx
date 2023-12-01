@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { TbSearch } from "react-icons/tb";
 import { CgShoppingCart } from "react-icons/cg";
 import { FaUser } from "react-icons/fa";
 import Search from "./Search/Search";
 import Cart from "../Cart/Cart";
+import { toast } from "react-toastify";
 import "./Header.scss";
 import { FaAngleDown } from "react-icons/fa";
 import DropDownItem from "./DropDownItem/DropDownItem";
@@ -23,7 +25,8 @@ const Header = () => {
   const navigate = useNavigate();
   const dropdownRef = useRef<any>(null);
   const context = useContext<any>(Context);
-  const { productQuantities }: any = useContext(Context);
+  const { productQuantities, setProductQuantities, setProductIds }: any =
+    useContext(Context);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -71,6 +74,18 @@ const Header = () => {
   const handleDropdownClick = () => {
     setShowDropdown(!showDropdown);
     window.scrollTo(0, 0);
+  };
+
+  const isLoggedIn = () => {
+    return Cookies.get("token") !== undefined;
+  };
+
+  const handleSignOut = () => {
+    Cookies.remove("token");
+    navigate("/");
+    setProductQuantities([]);
+    setProductIds([]);
+    toast.success("Log Out Successfully!");
   };
 
   return (
@@ -121,14 +136,21 @@ const Header = () => {
                 window.scrollTo(0, 0);
               }}
             />
-            <div
-              onClick={() => {
-                navigate("/register");
-                window.scrollTo(0, 0);
-              }}
-            >
-              SignUp
-            </div>
+            {isLoggedIn() ? (
+              <div onClick={handleSignOut} className="log-out">
+                Log Out
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  navigate("/register");
+                  window.scrollTo(0, 0);
+                }}
+                className="sign-up"
+              >
+                Sign Up
+              </div>
+            )}
             <span className="cart-icon" onClick={() => setShowCart(true)}>
               <CgShoppingCart />
               {productQuantities.length > 0 && (

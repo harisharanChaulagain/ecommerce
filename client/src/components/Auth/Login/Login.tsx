@@ -42,7 +42,6 @@ const Login = () => {
 
       try {
         const response = await mutation.mutateAsync(formData);
-        console.log("hari", response);
 
         if (response?.status === 200) {
           toast.success(response.data.message);

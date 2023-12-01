@@ -61,6 +61,19 @@
       div {
         cursor: pointer;
       }
+      .sign-up {
+        background: #5755d6;
+        padding: 2px;
+        border-radius: 2px;
+        font-size: 14px;
+        animation: colorTransition 1s infinite alternate;
+      }
+      .log-out {
+        background: rgb(172, 28, 28);
+        padding: 2px;
+        border-radius: 2px;
+        font-size: 14px;
+      }
       .cart-icon {
         position: relative;
         span {
@@ -92,5 +105,14 @@
   }
   to {
     transform: translateY(0);
+  }
+}
+
+@keyframes colorTransition {
+  from {
+    background-color: #5755d6;
+  }
+  to {
+    background-color: #7d7aff;
   }
 }

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { Context } from "../../utils/context";
 
 const config = () => {
-  const { setClearCart }: any = useContext(Context);
+  const { setProductQuantities, setProductIds }: any = useContext(Context);
   return {
     publicKey: myKey.publicTestKey,
     productIdentity: "123766",
@@ -18,7 +18,8 @@ const config = () => {
           .then((response) => {
             console.log(response.data);
             toast.success("Payment Successful!");
-            setClearCart(true);
+            setProductQuantities([]);
+            setProductIds([]);
           })
           .catch((error) => {
             console.log(error);

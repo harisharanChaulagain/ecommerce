@@ -117,25 +117,14 @@ const Signup = () => {
           </div>
           <div className="mb-20 input-element">
             <label>Password</label>
-            <div>
-              <div>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                />
-              </div>
-              <div
-                style={{
-                  position: "relative",
-                  bottom: "27px",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  paddingRight: "10px",
-                }}
-                onClick={handleTogglePassword}
-              >
+            <div className="password-input">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+              />
+              <div className="password-toggle" onClick={handleTogglePassword}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </div>
             </div>

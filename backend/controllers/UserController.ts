@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/User";
+require("dotenv").config();
+import jwt from "jsonwebtoken";
+
+const SECRET_KEY: any = process.env.SECRET_KEY;
 
 const UserController = {
   createUser: async (req: Request, res: Response) => {
@@ -42,7 +46,17 @@ const UserController = {
         return res.status(401).json({ error: "Invalid password" });
       }
 
-      res.status(200).json({ message: "Login successful" });
+      // Generate JWT token
+      const token = jwt.sign({ userId: user._id }, SECRET_KEY, {
+        expiresIn: "1h",
+      });
+      // Set the token in a cookie
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 1000,
+      });
+
+      res.status(200).json({ message: "Login successful", token });
     } catch (error) {
       console.error("Error logging in:", error);
       res.status(500).json({ error: "Internal Server Error" });
