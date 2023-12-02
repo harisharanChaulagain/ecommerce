@@ -92,6 +92,7 @@ const Header = () => {
     Cookies.remove("token");
     Cookies.remove("adminToken");
     navigate("/");
+    setShowDropdown(false);
     setProductQuantities([]);
     setProductIds([]);
     toast.success("Log Out Successfully!");
