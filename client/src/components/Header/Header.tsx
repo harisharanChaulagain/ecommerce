@@ -76,12 +76,21 @@ const Header = () => {
     window.scrollTo(0, 0);
   };
 
-  const isLoggedIn = () => {
+  const isUserLoggedIn = () => {
     return Cookies.get("token") !== undefined;
+  };
+
+  const isAdminLoggedIn = () => {
+    return Cookies.get("adminToken") !== undefined;
+  };
+
+  const isLoggedIn = () => {
+    return isUserLoggedIn() || isAdminLoggedIn();
   };
 
   const handleSignOut = () => {
     Cookies.remove("token");
+    Cookies.remove("adminToken");
     navigate("/");
     setProductQuantities([]);
     setProductIds([]);
@@ -110,13 +119,15 @@ const Header = () => {
             >
               Categories
             </li>
-            <li
-              className="dropdown-item"
-              onClick={handleDropdownClick}
-              ref={dropdownRef}
-            >
-              Add New <FaAngleDown />
-            </li>
+            {isAdminLoggedIn() && (
+              <li
+                className="dropdown-item"
+                onClick={handleDropdownClick}
+                ref={dropdownRef}
+              >
+                Add New <FaAngleDown />
+              </li>
+            )}
           </ul>
           <div
             className="center"

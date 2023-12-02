@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import "./Login.scss";
+import "./AdminLogin.scss";
 import { useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useUserLogin } from "../../../api/PostApi";
+import { useAdminLogin } from "../../../api/PostApi";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const Login = () => {
+const AdminLogin = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  const { mutation } = useUserLogin();
+  const { mutation } = useAdminLogin();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -19,13 +19,11 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      username: "",
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid email format")
-        .required("Email is required"),
+      username: Yup.string().required("username is required"),
       password: Yup.string()
         .min(8, "Password must be at least 8 characters")
         .matches(
@@ -37,7 +35,7 @@ const Login = () => {
 
     onSubmit: async (values, { resetForm }) => {
       const formData = new FormData();
-      formData.append("email", values.email);
+      formData.append("username", values.username);
       formData.append("password", values.password);
 
       try {
@@ -56,25 +54,19 @@ const Login = () => {
   });
 
   return (
-    <div className="login-main">
-      <div className="top-section">
-        <div>Welcome to Hamro Bazar! Please Login</div>
-        <div>
-          New member?{" "}
-          <span onClick={() => navigate("/register")}>Register</span> here.
-        </div>
-      </div>
+    <div className="login-main-admin">
+      <div className="top-section">Hello Admin!</div>
       <form className="input-fields" onSubmit={formik.handleSubmit}>
         <div>
-          <label>Email:</label>
+          <label>User Name:</label>
           <input
-            type="email"
-            name="email"
-            value={formik.values.email}
+            type="text"
+            name="username"
+            value={formik.values.username}
             onChange={formik.handleChange}
           />
-          {formik.touched.email && formik.errors.email ? (
-            <div className="error">{formik.errors.email}</div>
+          {formik.touched.username && formik.errors.username ? (
+            <div className="error">{formik.errors.username}</div>
           ) : null}
         </div>
         <div>
@@ -94,10 +86,12 @@ const Login = () => {
             <div className="error">{formik.errors.password}</div>
           ) : null}
         </div>
-        <button className="login-btn">Log In</button>
+        <button className="login-btn" type="submit">
+          Log In
+        </button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default AdminLogin;

@@ -7,6 +7,7 @@ require("dotenv").config();
 import fileUpload from "express-fileupload";
 import paymentRoutes from "./routes/paymentRoutes";
 import userRoutes from "./routes/userRoutes";
+import adminRoutes from "./routes/adminRoutes";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -36,6 +37,7 @@ mongoose
     app.use(productRoutes);
     app.use(paymentRoutes);
     app.use(userRoutes);
+    app.use(adminRoutes);
 
     // Start Server
     app.listen(PORT, () => {
