@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { useProduct } from "../../api/GetApi";
 import { Context } from "../../utils/context";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface Product {
   _id: string;
@@ -49,15 +50,21 @@ const SingleProduct = () => {
       /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
       "$1"
     );
-
-    if (!token) {
-      navigate("/login");
-    } else {
+    const adminToken = document.cookie.replace(
+      /(?:(?:^|.*;\s*)adminToken\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    if (adminToken) {
+      toast.warn("Admin can't add product to cart!");
+    } else if (token) {
       setProductQuantities((prevQuantities: any) => [
         ...prevQuantities,
         quantity,
       ]);
       setProductIds((prevIds: any) => [...prevIds, selectedProduct._id]);
+    } else {
+      toast.warn("Login before add to cart!");
+      navigate("/login");
     }
   };
 
