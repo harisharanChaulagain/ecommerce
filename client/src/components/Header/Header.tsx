@@ -119,13 +119,15 @@ const Header = () => {
             >
               Categories
             </li>
-            <li
-              className="dropdown-item"
-              onClick={handleDropdownClick}
-              ref={dropdownRef}
-            >
-              Add New <FaAngleDown />
-            </li>
+            {isAdminLoggedIn() && (
+              <li
+                className="dropdown-item"
+                onClick={handleDropdownClick}
+                ref={dropdownRef}
+              >
+                Add New <FaAngleDown />
+              </li>
+            )}
           </ul>
           <div
             className="center"
