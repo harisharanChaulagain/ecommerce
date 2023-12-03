@@ -163,12 +163,14 @@ const Header = () => {
                 Sign Up
               </div>
             )}
-            <span className="cart-icon" onClick={() => setShowCart(true)}>
-              <CgShoppingCart />
-              {productQuantities.length > 0 && (
-                <span>{productQuantities.length}</span>
-              )}
-            </span>
+            {isUserLoggedIn() && (
+              <span className="cart-icon" onClick={() => setShowCart(true)}>
+                <CgShoppingCart />
+                {productQuantities.length > 0 && (
+                  <span>{productQuantities.length}</span>
+                )}
+              </span>
+            )}
           </div>
         </div>
       </div>

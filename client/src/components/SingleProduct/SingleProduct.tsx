@@ -6,6 +6,7 @@ import {
   FaLinkedinIn,
   FaCartPlus,
   FaPinterest,
+  FaExclamationCircle,
 } from "react-icons/fa";
 import RelatedProducts from "./RelatedProducts/RelatedProducts";
 import "./SingleProduct.scss";
@@ -34,6 +35,7 @@ const SingleProduct = () => {
   const selectedProduct = productData.find(
     (product: Product) => product._id === id
   );
+  const outOfStock = selectedProduct.units === 0;
 
   const decrement = () => {
     setQuantity((prevState: any) => {
@@ -90,10 +92,23 @@ const SingleProduct = () => {
                 <span>{quantity}</span>
                 <span onClick={increment}>+</span>
               </div>
-              <button className="add-to-cart-button" onClick={addToCart}>
-                <FaCartPlus size={20} />
-                ADD TO CART
-              </button>
+              <div>
+                <button
+                  className={`add-to-cart-button ${
+                    outOfStock ? "disable" : ""
+                  }`}
+                  onClick={addToCart}
+                >
+                  <FaCartPlus size={20} />
+                  ADD TO CART
+                </button>
+                {outOfStock && (
+                  <div className="out-of-stock">
+                    <FaExclamationCircle size={20} />
+                    Out of Stock!
+                  </div>
+                )}
+              </div>
             </div>
             <span className="divider" />
             <div className="info-item">
