@@ -129,7 +129,7 @@ const SingleProduct = () => {
             </div>
           </div>
         </div>
-        <RelatedProducts />
+        <RelatedProducts currentProductCategory={selectedProduct.category} />
       </div>
     </div>
   );
