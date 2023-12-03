@@ -36,6 +36,7 @@ const SingleProduct = () => {
     (product: Product) => product._id === id
   );
   const outOfStock = selectedProduct.units === 0;
+  const exceedQuantity = quantity < selectedProduct.units;
 
   const decrement = () => {
     setQuantity((prevState: any) => {
@@ -45,7 +46,11 @@ const SingleProduct = () => {
   };
 
   const increment = () => {
-    setQuantity((prevState: any) => prevState + 1);
+    if (exceedQuantity) {
+      setQuantity((prevState: any) => prevState + 1);
+    } else {
+      toast.warn("Exceed the Stock quantity!");
+    }
   };
   const addToCart = () => {
     const token = document.cookie.replace(

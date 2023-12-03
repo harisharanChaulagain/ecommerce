@@ -55,6 +55,7 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
         price={selectedProduct.price}
         onRemove={() => handleRemoveProduct(index)}
         index={index}
+        stock={selectedProduct.units}
       />
     );
   });
