@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./CartItem.scss";
 import { MdClose } from "react-icons/md";
 import { Context } from "../../../utils/context";
+import { toast } from "react-toastify";
 
 const CartItem: React.FC<any> = ({
   image,
@@ -10,8 +11,11 @@ const CartItem: React.FC<any> = ({
   price,
   onRemove,
   index,
+  stock,
 }) => {
   const { productQuantities, setProductQuantities }: any = useContext(Context);
+
+  const exceedQuantity = quantity < stock;
 
   const decrement = () => {
     const newProductQuantities = [...productQuantities];
@@ -20,9 +24,13 @@ const CartItem: React.FC<any> = ({
   };
 
   const increment = () => {
-    const newProductQuantities = [...productQuantities];
-    newProductQuantities[index] = newProductQuantities[index] + 1;
-    setProductQuantities(newProductQuantities);
+    if (exceedQuantity) {
+      const newProductQuantities = [...productQuantities];
+      newProductQuantities[index] = newProductQuantities[index] + 1;
+      setProductQuantities(newProductQuantities);
+    } else {
+      toast.warn("Exceed the Stock quantity!");
+    }
   };
 
   return (

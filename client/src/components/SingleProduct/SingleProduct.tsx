@@ -6,6 +6,7 @@ import {
   FaLinkedinIn,
   FaCartPlus,
   FaPinterest,
+  FaExclamationCircle,
 } from "react-icons/fa";
 import RelatedProducts from "./RelatedProducts/RelatedProducts";
 import "./SingleProduct.scss";
@@ -34,6 +35,8 @@ const SingleProduct = () => {
   const selectedProduct = productData.find(
     (product: Product) => product._id === id
   );
+  const outOfStock = selectedProduct.units === 0;
+  const exceedQuantity = quantity < selectedProduct.units;
 
   const decrement = () => {
     setQuantity((prevState: any) => {
@@ -43,7 +46,11 @@ const SingleProduct = () => {
   };
 
   const increment = () => {
-    setQuantity((prevState: any) => prevState + 1);
+    if (exceedQuantity) {
+      setQuantity((prevState: any) => prevState + 1);
+    } else {
+      toast.warn("Exceed the Stock quantity!");
+    }
   };
   const addToCart = () => {
     const token = document.cookie.replace(
@@ -90,10 +97,23 @@ const SingleProduct = () => {
                 <span>{quantity}</span>
                 <span onClick={increment}>+</span>
               </div>
-              <button className="add-to-cart-button" onClick={addToCart}>
-                <FaCartPlus size={20} />
-                ADD TO CART
-              </button>
+              <div>
+                <button
+                  className={`add-to-cart-button ${
+                    outOfStock ? "disable" : ""
+                  }`}
+                  onClick={addToCart}
+                >
+                  <FaCartPlus size={20} />
+                  ADD TO CART
+                </button>
+                {outOfStock && (
+                  <div className="out-of-stock">
+                    <FaExclamationCircle size={20} />
+                    Out of Stock!
+                  </div>
+                )}
+              </div>
             </div>
             <span className="divider" />
             <div className="info-item">
@@ -114,7 +134,7 @@ const SingleProduct = () => {
             </div>
           </div>
         </div>
-        <RelatedProducts />
+        <RelatedProducts currentProductCategory={selectedProduct.category} />
       </div>
     </div>
   );

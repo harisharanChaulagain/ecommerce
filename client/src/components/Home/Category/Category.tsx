@@ -1,6 +1,7 @@
 import React from "react";
 import "./Category.scss";
 import { useCategory } from "../../../api/GetApi";
+import { Link } from "react-router-dom";
 
 const Category = () => {
   const { data: categoryData, isLoading, isError } = useCategory();
@@ -17,14 +18,18 @@ const Category = () => {
     <div className="shop-by-category">
       <div className="categories">
         {categoryData.map((category: any, index: number) => (
-          <div key={index} className="category">
+          <Link
+            to={`/category/${category.name}`}
+            key={index}
+            className="category"
+          >
             <img
               src={`../../../../public/category/${
                 category.image.split("/")[2]
               }`}
               alt={`Category ${index + 1}`}
             />
-          </div>
+          </Link>
         ))}
       </div>
     </div>

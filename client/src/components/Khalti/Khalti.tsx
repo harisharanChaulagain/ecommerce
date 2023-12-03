@@ -4,10 +4,12 @@ import KhaltiCheckout from "khalti-checkout-web";
 import config from "./KhaltiConfig";
 import { MdClose } from "react-icons/md";
 import { useNavigate } from "react-router";
+import { useParams } from "react-router-dom";
 
 const Khalti = () => {
   const navigate = useNavigate();
   let checkout = new KhaltiCheckout(config());
+  const { id }: any = useParams<{ id: string }>();
   return (
     <div className="main">
       <div className="opac-layer"></div>
@@ -18,7 +20,7 @@ const Khalti = () => {
         </span>
         <button
           onClick={() => {
-            checkout.show({ amount: 20000 });
+            checkout.show({ amount: parseInt(id) });
             navigate("/");
           }}
           className="pay-btn"

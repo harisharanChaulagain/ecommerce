@@ -55,6 +55,7 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
         price={selectedProduct.price}
         onRemove={() => handleRemoveProduct(index)}
         index={index}
+        stock={selectedProduct.units}
       />
     );
   });
@@ -96,7 +97,8 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
                 <button
                   className="checkout-cta"
                   onClick={() => {
-                    navigate("/payment/:id");
+                    const totals = (total * 100).toFixed(0);
+                    navigate(`/payment/${totals}`);
                     setShowCart(false);
                   }}
                 >
