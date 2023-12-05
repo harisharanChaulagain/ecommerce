@@ -3,12 +3,13 @@ import "./Khalti.scss";
 import KhaltiCheckout from "khalti-checkout-web";
 import config from "./KhaltiConfig";
 import { MdClose } from "react-icons/md";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 
 const Khalti = () => {
   const navigate = useNavigate();
-  let checkout = new KhaltiCheckout(config());
+  const { state } = useLocation();
+  let checkout = new KhaltiCheckout(config(state?.products || []));
   const { id }: any = useParams<{ id: string }>();
   return (
     <div className="main">

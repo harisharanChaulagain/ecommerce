@@ -126,3 +126,24 @@ export const useAdminLogin = () => {
 
   return { mutation };
 };
+
+// Update product quantities after checkout
+export const useUpdateProductQuantities = () => {
+  const updateRequest = async (data: any) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/products/checkout",
+        data
+      );
+
+      console.log("Response from API:", response.data);
+    } catch (error) {
+      console.error("Error updating product quantities:", error);
+      throw error;
+    }
+  };
+
+  const mutation = useMutation(updateRequest);
+
+  return { mutation };
+};

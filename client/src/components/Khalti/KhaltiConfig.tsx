@@ -3,16 +3,24 @@ import myKey from "./KhaltiKey";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Context } from "../../utils/context";
+import { useUpdateProductQuantities } from "../../api/PostApi";
 
-const config = () => {
+const config = (products: any) => {
   const { setProductQuantities, setProductIds }: any = useContext(Context);
-  return {
-    publicKey: myKey.publicTestKey,
-    productIdentity: "123766",
-    productName: "Hamro Bazar",
-    productUrl: "http://localhost:5173/",
-    eventHandler: {
-      onSuccess() {
+  const { mutation: updateProductQuantities } = useUpdateProductQuantities();
+
+  const onSuccess = async () => {
+    try {
+      if (products && products.length > 0) {
+        const productUpdates = products.map((product: any) => ({
+          _id: product._id,
+          quantity: product.quantity,
+        }));
+
+        await updateProductQuantities.mutate({
+          products: productUpdates,
+        });
+
         axios
           .post("http://localhost:3001/verify-payment")
           .then((response) => {
@@ -24,7 +32,21 @@ const config = () => {
           .catch((error) => {
             console.log(error);
           });
-      },
+      } else {
+        console.warn("No products to update quantities");
+      }
+    } catch (error) {
+      console.error("Error handling payment success:", error);
+    }
+  };
+
+  return {
+    publicKey: myKey.publicTestKey,
+    productIdentity: "123766",
+    productName: "Hamro Bazar",
+    productUrl: "http://localhost:5173/",
+    eventHandler: {
+      onSuccess,
       onError(error: any) {
         console.log(error);
       },

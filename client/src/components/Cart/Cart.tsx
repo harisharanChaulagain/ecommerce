@@ -98,7 +98,14 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
                   className="checkout-cta"
                   onClick={() => {
                     const totals = (total * 100).toFixed(0);
-                    navigate(`/payment/${totals}`);
+                    navigate(`/payment/${totals}`, {
+                      state: {
+                        products: productIds.map((_id: any, index: any) => ({
+                          _id,
+                          quantity: productQuantities[index],
+                        })),
+                      },
+                    });
                     setShowCart(false);
                   }}
                 >

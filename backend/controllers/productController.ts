@@ -69,3 +69,38 @@ export const searchProducts = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+//checkout
+export const updateProductQuantities = async (req: Request, res: Response) => {
+  try {
+    const { products } = req.body;
+
+    // Validate the request
+    if (!Array.isArray(products)) {
+      return res.status(400).json({
+        error: "Invalid request format. Expected an array of products.",
+      });
+    }
+
+    // Update product quantities in the database
+    for (const { _id, quantity } of products) {
+      const product = await Product.findById(_id);
+      if (!product) {
+        return res
+          .status(404)
+          .json({ error: `Product not found with ID: ${_id}` });
+      }
+
+      // Update the quantity in the database
+      product.units -= quantity;
+      await product.save();
+    }
+
+    res
+      .status(200)
+      .json({ message: "Product quantities updated successfully." });
+  } catch (error) {
+    console.error("Error updating product quantities:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
