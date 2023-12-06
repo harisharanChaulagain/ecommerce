@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./DropDownItem.scss";
-import { BsPlusCircle } from "react-icons/bs";
 import { Context } from "../../../utils/context";
 
 const DropDownItem = () => {
@@ -34,14 +33,12 @@ const DropDownItem = () => {
   return (
     <div className={`dropdown-item ${scrolled ? "sticky-header" : ""}`}>
       <div className="dropdown-content">
-        <div onClick={handleNewCategoryClick}>
-          Add New Category
-          <BsPlusCircle />
-        </div>
-        <div onClick={handleNewProductClick}>
-          Add New Product
-          <BsPlusCircle />
-        </div>
+        <div onClick={handleNewCategoryClick}>Add New Category</div>
+        <div onClick={handleNewProductClick}>Add New Product</div>
+        <div>Category Table</div>
+        <div>Product Table</div>
+        <div>Reports</div>
+        <div>Admin Dashboard</div>
       </div>
     </div>
   );

@@ -126,7 +126,7 @@ const Header = () => {
                 onClick={handleDropdownClick}
                 ref={dropdownRef}
               >
-                Add New <FaAngleDown />
+                More... <FaAngleDown />
               </li>
             )}
           </ul>
