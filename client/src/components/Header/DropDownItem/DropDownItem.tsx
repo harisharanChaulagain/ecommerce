@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./DropDownItem.scss";
 import { Context } from "../../../utils/context";
+import { useNavigate } from "react-router";
 
 const DropDownItem = () => {
+  const navigate: any = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const { setNewCategory }: any = useContext(Context);
   const { setNewProduct }: any = useContext(Context);
@@ -35,10 +37,10 @@ const DropDownItem = () => {
       <div className="dropdown-content">
         <div onClick={handleNewCategoryClick}>Add New Category</div>
         <div onClick={handleNewProductClick}>Add New Product</div>
-        <div>Category Table</div>
-        <div>Product Table</div>
-        <div>Reports</div>
-        <div>Admin Dashboard</div>
+        <div onClick={() => navigate("/category/table")}>Category Table</div>
+        <div onClick={() => navigate("/product/table")}>Product Table</div>
+        <div onClick={() => navigate("/reports")}>Reports</div>
+        <div onClick={() => navigate("/admin/dashboard")}>Admin Dashboard</div>
       </div>
     </div>
   );

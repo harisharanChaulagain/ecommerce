@@ -1,0 +1,43 @@
+.table-main {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  }
+
+  .img-container {
+    background-color: rgba(0, 0, 0, 0.05);
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .action-button {
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 8px;
+    svg {
+      font-size: 24px;
+    }
+  }
+
+  .delete {
+    color: red;
+  }
+
+  .edit {
+    color: orange;
+  }
+}
