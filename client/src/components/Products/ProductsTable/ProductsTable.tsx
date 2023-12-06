@@ -3,12 +3,19 @@ import { MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import "../../Category/CategoryTable/CategoryTable.scss";
 import { useProduct } from "../../../api/GetApi";
+import { useDeleteProduct } from "../../../api/DeleteApi";
 
-const CategoryTable = () => {
+const ProductTable = () => {
   const { data: productData, isLoading } = useProduct();
+  const { mutation: deleteProduct } = useDeleteProduct();
   if (isLoading) {
     return <div>Table data is Loading....</div>;
   }
+  const handleDelete = async (productId: string) => {
+    try {
+      await deleteProduct.mutate(productId);
+    } catch (error) {}
+  };
 
   return (
     <div className="table-main">
@@ -39,7 +46,10 @@ const CategoryTable = () => {
                 />
               </td>
               <td>
-                <span className="action-button delete">
+                <span
+                  className="action-button delete"
+                  onClick={() => handleDelete(item._id)}
+                >
                   <MdDelete />
                 </span>
                 <span className="action-button edit">
@@ -54,4 +64,4 @@ const CategoryTable = () => {
   );
 };
 
-export default CategoryTable;
+export default ProductTable;

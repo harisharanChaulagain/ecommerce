@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import category from "../models/category";
+import category from "../models/Category";
 import path from "path";
 import { UploadedFile } from "express-fileupload";
 
