@@ -14,7 +14,10 @@ const CategoryTable = () => {
   }
   const handleDelete = async (categoryId: string) => {
     try {
-      await deleteCategory.mutate(categoryId);
+      const userConfirmed = window.confirm("Are you sure to delete?");
+      if (userConfirmed) {
+        await deleteCategory.mutate(categoryId);
+      }
     } catch (error) {}
   };
 

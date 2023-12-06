@@ -13,7 +13,10 @@ const ProductTable = () => {
   }
   const handleDelete = async (productId: string) => {
     try {
-      await deleteProduct.mutate(productId);
+      const userConfirmed = window.confirm("Are you sure to delete?");
+      if (userConfirmed) {
+        await deleteProduct.mutate(productId);
+      }
     } catch (error) {}
   };
 
