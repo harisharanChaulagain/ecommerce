@@ -17,6 +17,8 @@ const CategoryTable = () => {
           <tr>
             <th>S.N.</th>
             <th>Product Name</th>
+            <th>Category</th>
+            <th>Remaining Quantity</th>
             <th>Product Image</th>
             <th>Action</th>
           </tr>
@@ -26,6 +28,8 @@ const CategoryTable = () => {
             <tr key={item._id}>
               <td>{index + 1}</td>
               <td>{item.name}</td>
+              <td>{item.category}</td>
+              <td>{item.units}</td>
               <td className="img-container">
                 <img
                   src={`../../../../public/product/${

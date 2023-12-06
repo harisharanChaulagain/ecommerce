@@ -1,4 +1,6 @@
+@import "../../../css-config/mixins.scss";
 .table-main {
+  overflow-x: auto;
   table {
     width: 100%;
     border-collapse: collapse;
@@ -26,10 +28,17 @@
 
   .action-button {
     cursor: pointer;
-    margin-right: 10px;
-    padding: 8px;
+    margin-right: 0px;
+    padding: 4px;
+    @include md {
+      padding: 8px;
+      margin-right: 10px;
+    }
     svg {
-      font-size: 24px;
+      font-size: 16px;
+      @include md {
+        font-size: 24px;
+      }
     }
   }
 
