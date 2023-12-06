@@ -3,12 +3,20 @@ import "./CategoryTable.scss";
 import { useCategory } from "../../../api/GetApi";
 import { MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
+import { useDeleteCategory } from "../../../api/DeleteApi";
 
 const CategoryTable = () => {
   const { data: categoryData, isLoading } = useCategory();
+  const { mutation: deleteCategory } = useDeleteCategory();
+  console.log("check category", categoryData);
   if (isLoading) {
     return <div>Table data is Loading....</div>;
   }
+  const handleDelete = async (categoryId: string) => {
+    try {
+      await deleteCategory.mutate(categoryId);
+    } catch (error) {}
+  };
 
   return (
     <div className="table-main">
@@ -35,7 +43,10 @@ const CategoryTable = () => {
                 />
               </td>
               <td>
-                <span className="action-button delete">
+                <span
+                  className="action-button delete"
+                  onClick={() => handleDelete(item._id)}
+                >
                   <MdDelete />
                 </span>
                 <span className="action-button edit">

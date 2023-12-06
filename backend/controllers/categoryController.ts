@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import category from "../models/Category";
+import Category from "../models/Category";
 import path from "path";
 import { UploadedFile } from "express-fileupload";
 
 export const getAllCategories = async (req: Request, res: Response) => {
   try {
-    const categories = await category.find();
+    const categories = await Category.find();
     res.json(categories);
   } catch (error) {
     console.error(error);
@@ -29,7 +29,7 @@ export const createCategory = async (req: Request, res: Response) => {
       imageUrl = `/images/${imageName}`;
     }
 
-    const newCategory: any = new category({ name, image: imageUrl });
+    const newCategory: any = new Category({ name, image: imageUrl });
     await newCategory.save();
 
     console.log("New category added:", newCategory);
@@ -37,5 +37,23 @@ export const createCategory = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+//delete category by _id
+export const deleteCategoryById = async (req: Request, res: Response) => {
+  try {
+    const categoryId = req.params.id;
+    if (!categoryId) {
+      return res.status(400).json({ error: "Category id is requires" });
+    }
+    const category = await Category.findById(categoryId);
+    if (!category) {
+      return res.status(404).json({ error: "Category not found." });
+    }
+    await Category.deleteOne({ _id: categoryId });
+    res.status(200).json({ message: "Category deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ erroe: "Internal server error" });
   }
 };
