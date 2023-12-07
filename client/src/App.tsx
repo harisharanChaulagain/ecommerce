@@ -16,7 +16,6 @@ import Signup from "./components/Auth/Signup/Signup";
 import AdminLogin from "./components/Auth/Admin/AdminLogin";
 import CategoryTable from "./components/Category/CategoryTable/CategoryTable";
 import ProductsTable from "./components/Products/ProductsTable/ProductsTable";
-import Reports from "./components/Reports/Reports";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 
 const App: React.FC = () => {
@@ -35,7 +34,6 @@ const App: React.FC = () => {
           <Route path="admin/login" element={<AdminLogin />} />
           <Route path="/category/table" element={<CategoryTable />} />
           <Route path="/product/table" element={<ProductsTable />} />
-          <Route path="/reports" element={<Reports />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
         <Newsletter />

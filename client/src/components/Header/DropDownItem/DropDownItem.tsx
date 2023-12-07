@@ -39,7 +39,6 @@ const DropDownItem = () => {
         <div onClick={handleNewProductClick}>Add New Product</div>
         <div onClick={() => navigate("/category/table")}>Category Table</div>
         <div onClick={() => navigate("/product/table")}>Product Table</div>
-        <div onClick={() => navigate("/reports")}>Reports</div>
         <div onClick={() => navigate("/admin/dashboard")}>Admin Dashboard</div>
       </div>
     </div>
