@@ -2,11 +2,22 @@ import { Request, Response } from "express";
 import Category from "../models/Category";
 import path from "path";
 import { UploadedFile } from "express-fileupload";
+import Product from "../models/Product";
 
 export const getAllCategories = async (req: Request, res: Response) => {
   try {
     const categories = await Category.find();
-    res.json(categories);
+
+    const categoriesWithItemCount = await Promise.all(
+      categories.map(async (category) => {
+        const itemCount = await Product.countDocuments({
+          category: category.name,
+        });
+        return { ...category.toObject(), itemCount };
+      })
+    );
+
+    res.json(categoriesWithItemCount);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
