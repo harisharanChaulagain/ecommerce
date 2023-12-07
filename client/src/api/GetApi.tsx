@@ -49,3 +49,17 @@ export const useSearchProduct = (productName: string) => {
     }
   );
 };
+
+// userDetails
+const fetchUserData = async (): Promise<any> => {
+  try {
+    const response = await axios.get("http://localhost:3001/user/details");
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch user data from API");
+  }
+};
+
+export const useUserDetails = () => {
+  return useQuery<any>("userDetailsData", fetchUserData);
+};

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Pie } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { useCategory } from "../../../api/GetApi";
+import "./Chart.scss";
 
 const ChartComponent: React.FC = () => {
   const { data: categoryData }: any = useCategory();
@@ -52,9 +53,9 @@ const ChartComponent: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="chart-main">
       <h2>Category Counts</h2>
-      <div id={chartContainerId} style={{ height: "500px" }}>
+      <div id={chartContainerId}>
         <Pie data={data} />
       </div>
     </div>

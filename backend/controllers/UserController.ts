@@ -62,6 +62,17 @@ const UserController = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
+
+  //user count
+  getUserDetails: async (req: Request, res: Response) => {
+    try {
+      const userCount = await User.countDocuments();
+      res.status(200).json({ userCount });
+    } catch (error) {
+      console.error("Error getting user count:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
 };
 
 export default UserController;
