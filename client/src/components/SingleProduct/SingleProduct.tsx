@@ -32,11 +32,11 @@ const SingleProduct = () => {
   const { setProductIds }: any = useContext(Context);
   const navigate = useNavigate();
 
-  const selectedProduct = productData.find(
+  const selectedProduct = productData?.find(
     (product: Product) => product._id === id
   );
-  const outOfStock = selectedProduct.units === 0;
-  const exceedQuantity = quantity < selectedProduct.units;
+  const outOfStock = selectedProduct?.units === 0;
+  const exceedQuantity = quantity < selectedProduct?.units;
 
   const decrement = () => {
     setQuantity((prevState: any) => {
@@ -82,15 +82,15 @@ const SingleProduct = () => {
           <div className="left">
             <img
               src={`../../../../public/product/${
-                selectedProduct.image.split("/")[2]
+                selectedProduct?.image.split("/")[2]
               }`}
               alt="product image"
             />
           </div>
           <div className="right">
-            <span className="name">{selectedProduct.name}</span>
-            <span className="price">&#8377; {selectedProduct.price}</span>
-            <span className="desc">{selectedProduct.description}</span>
+            <span className="name">{selectedProduct?.name}</span>
+            <span className="price">&#8377; {selectedProduct?.price}</span>
+            <span className="desc">{selectedProduct?.description}</span>
             <div className="cart-buttons">
               <div className="quantity-buttons">
                 <span onClick={decrement}>-</span>
@@ -119,7 +119,7 @@ const SingleProduct = () => {
             <div className="info-item">
               <span className="text-bold">
                 Category:
-                <span> {selectedProduct.category}</span>
+                <span> {selectedProduct?.category}</span>
               </span>
               <span className="text-bold">
                 Share:
@@ -134,7 +134,7 @@ const SingleProduct = () => {
             </div>
           </div>
         </div>
-        <RelatedProducts currentProductCategory={selectedProduct.category} />
+        <RelatedProducts currentProductCategory={selectedProduct?.category} />
       </div>
     </div>
   );

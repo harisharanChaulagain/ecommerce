@@ -12,7 +12,7 @@ const RelatedProducts: React.FC<CurrentProductCategoryProps> = ({
 }) => {
   const { data: productData } = useProduct();
 
-  const relatedProducts = productData.filter(
+  const relatedProducts = productData?.filter(
     (product: any) => product.category === currentProductCategory
   );
 
