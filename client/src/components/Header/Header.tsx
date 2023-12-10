@@ -142,12 +142,14 @@ const Header = () => {
           </div>
           <div className="right">
             <TbSearch onClick={() => setShowSearch(true)} />
-            <FaUser
-              onClick={() => {
-                navigate("/login");
-                window.scrollTo(0, 0);
-              }}
-            />
+            {!isLoggedIn() && (
+              <FaUser
+                onClick={() => {
+                  navigate("/login");
+                  window.scrollTo(0, 0);
+                }}
+              />
+            )}
             {isLoggedIn() ? (
               <div onClick={handleSignOut} className="log-out">
                 Log Out
