@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./Banner.scss";
 import { useProduct } from "../../../api/GetApi";
 import { useNavigate } from "react-router";
+import { typeWriter } from "../../../utils/typewriterUtils";
 
 const Banner = () => {
   const { data: productData } = useProduct();
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [newName, setNewName] = useState("");
+
+  const name =
+    "Shop the Future: Elevate Your Style, Elevate Your Life. Explore Endless Possibilities at Hamro Bazar.";
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -32,6 +37,10 @@ const Banner = () => {
     };
   }, [productData?.length]);
 
+  useEffect(() => {
+    typeWriter(name, setNewName);
+  }, []);
+
   return (
     <div
       className="hero-banner"
@@ -40,10 +49,7 @@ const Banner = () => {
       <div className="content">
         <div className="text-content">
           <h1>SALES</h1>
-          <p>
-            Shop the Future: Elevate Your Style, Elevate Your Life. Explore
-            Endless Possibilities at Hamro Bazar.
-          </p>
+          <p>{newName}</p>
           <div className="ctas">
             <div
               className="banner-cta"
