@@ -8,7 +8,6 @@ import { useDeleteCategory } from "../../../api/DeleteApi";
 const CategoryTable = () => {
   const { data: categoryData, isLoading } = useCategory();
   const { mutation: deleteCategory } = useDeleteCategory();
-  console.log("check category", categoryData);
   if (isLoading) {
     return <div>Table data is Loading....</div>;
   }

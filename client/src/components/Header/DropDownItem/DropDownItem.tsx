@@ -6,8 +6,8 @@ import { useNavigate } from "react-router";
 const DropDownItem = () => {
   const navigate: any = useNavigate();
   const [scrolled, setScrolled] = useState(false);
-  const { setNewCategory }: any = useContext(Context);
-  const { setNewProduct }: any = useContext(Context);
+  const { setNewCategory, setIsUpdate, setNewProduct }: any =
+    useContext(Context);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -30,6 +30,7 @@ const DropDownItem = () => {
   };
   const handleNewProductClick = () => {
     setNewProduct(true);
+    setIsUpdate(false);
   };
 
   return (
