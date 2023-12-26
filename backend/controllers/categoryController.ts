@@ -68,3 +68,35 @@ export const deleteCategoryById = async (req: Request, res: Response) => {
     res.status(500).json({ erroe: "Internal server error" });
   }
 };
+
+//Update category
+export const updateCategory = async (req: Request, res: Response) => {
+  try {
+    const categoryId = req.params.id;
+    const updates = req.body;
+
+    if (!categoryId) {
+      return res.status(400).json({
+        error: "Category id is required",
+      });
+    }
+
+    const category = await Category.findById(categoryId);
+    if (!category) {
+      return res.status(404).json({ error: "Category not found." });
+    }
+    for (const key in updates) {
+      if (Object.prototype.hasOwnProperty.call(updates, key)) {
+        (category as any)[key] = updates[key];
+      }
+    }
+    await category.save();
+    res.status(200).json({
+      message: "Category updated successfully!!",
+      updatedcategory: category,
+    });
+  } catch (error) {
+    console.error("Error updating products:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
