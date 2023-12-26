@@ -178,7 +178,7 @@ const Header = () => {
       </div>
       {showCart && <Cart setShowCart={setShowCart} />}
       {showSearch && <Search setShowSearch={setShowSearch} />}
-      {newCategory && <NewCategory />}
+      {newCategory && <NewCategory isUpdate={false} />}
       {newProduct && <NewProduct isUpdate={false} />}
       {showDropdown && <DropDownItem />}
     </>

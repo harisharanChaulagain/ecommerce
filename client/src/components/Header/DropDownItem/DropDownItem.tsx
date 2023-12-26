@@ -27,6 +27,7 @@ const DropDownItem = () => {
 
   const handleNewCategoryClick = () => {
     setNewCategory(true);
+    setIsUpdate(false);
   };
   const handleNewProductClick = () => {
     setNewProduct(true);
