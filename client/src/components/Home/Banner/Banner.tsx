@@ -74,7 +74,7 @@ const Banner = () => {
               }`}
               alt="Banner Image"
             />
-            <button className="next-button" onClick={handleNextImage}>
+            <button className="prev-button" onClick={handleNextImage}>
               {">"}
             </button>
           </div>
