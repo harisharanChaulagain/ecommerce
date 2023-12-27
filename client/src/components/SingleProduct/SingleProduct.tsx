@@ -15,6 +15,7 @@ import { useProduct } from "../../api/GetApi";
 import { Context } from "../../utils/context";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import StarRating from "../StarRating/StarRating";
 
 interface Product {
   _id: string;
@@ -31,6 +32,7 @@ const SingleProduct = () => {
   const { setProductQuantities }: any = useContext(Context);
   const { setProductIds }: any = useContext(Context);
   const navigate = useNavigate();
+  const [userRating, setUserRating] = useState<number | null>(null);
 
   const selectedProduct = productData?.find(
     (product: Product) => product._id === id
@@ -72,6 +74,30 @@ const SingleProduct = () => {
     } else {
       toast.warn("Login before add to cart!");
       navigate("/login");
+    }
+  };
+
+  const handleRating = async (rating: number) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/products/${id}/rate`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ rating }),
+        }
+      );
+
+      if (response.ok) {
+        await response.json();
+        setUserRating(rating);
+      } else {
+        console.error("Failed to submit rating");
+      }
+    } catch (error) {
+      console.error("Error submitting rating:", error);
     }
   };
 
@@ -131,6 +157,27 @@ const SingleProduct = () => {
                   <FaPinterest size={16} />
                 </span>
               </span>
+            </div>
+            <span className="divider" />
+            <div className="info-item">
+              <span className="text-bold">Ratings & Reviews </span>
+              {userRating !== null ? (
+                <div className="user-rating">
+                  <StarRating rating={userRating} />
+                </div>
+              ) : (
+                <div className="star-rating">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span
+                      key={star}
+                      onClick={() => handleRating(star)}
+                      className={star <= (userRating ?? 0) ? "selected" : ""}
+                    >
+                      <StarRating rating={star} />
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
