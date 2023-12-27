@@ -16,6 +16,7 @@ import { Context } from "../../utils/context";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import StarRating from "../StarRating/StarRating";
+import Cookies from "js-cookie";
 
 interface Product {
   _id: string;
@@ -39,6 +40,10 @@ const SingleProduct = () => {
   );
   const outOfStock = selectedProduct?.units === 0;
   const exceedQuantity = quantity < selectedProduct?.units;
+
+  const isUserLoggedIn = () => {
+    return Cookies.get("token") !== undefined;
+  };
 
   const decrement = () => {
     setQuantity((prevState: any) => {
@@ -159,26 +164,28 @@ const SingleProduct = () => {
               </span>
             </div>
             <span className="divider" />
-            <div className="info-item">
-              <span className="text-bold">Ratings & Reviews </span>
-              {userRating !== null ? (
-                <div className="user-rating">
-                  <StarRating rating={userRating} />
-                </div>
-              ) : (
-                <div className="star-rating">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <span
-                      key={star}
-                      onClick={() => handleRating(star)}
-                      className={star <= (userRating ?? 0) ? "selected" : ""}
-                    >
-                      <StarRating rating={star} />
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
+            {isUserLoggedIn() && (
+              <div className="info-item">
+                <span className="text-bold">Ratings & Reviews </span>
+                {userRating !== null ? (
+                  <div className="user-rating">
+                    <StarRating rating={userRating} />
+                  </div>
+                ) : (
+                  <div className="star-rating">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <span
+                        key={star}
+                        onClick={() => handleRating(star)}
+                        className={star <= (userRating ?? 0) ? "selected" : ""}
+                      >
+                        <StarRating rating={star} />
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
         <RelatedProducts currentProductCategory={selectedProduct?.category} />
