@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Product.scss";
 import { useNavigate } from "react-router-dom";
+import StarRating from "../../StarRating/StarRating";
 
 interface ProductProps {
   product: {
@@ -13,6 +14,9 @@ interface ProductProps {
 
 const Product: React.FC<ProductProps> = ({ product }) => {
   const navigate = useNavigate();
+  // const [averageRating, setAverageRating] = useState<number | null>(null);
+  const averageRating = 4.5;
+
   return (
     <div
       className="product-card"
@@ -30,6 +34,11 @@ const Product: React.FC<ProductProps> = ({ product }) => {
       <div className="prod-details">
         <span className="name">{product.name}</span>
         <span className="price">&#8377; {product.price}</span>
+        {averageRating !== null && (
+          <div className="price">
+            <StarRating rating={averageRating} />
+          </div>
+        )}
       </div>
     </div>
   );
