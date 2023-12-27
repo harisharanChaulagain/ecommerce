@@ -4,6 +4,9 @@
   @include md {
     margin: 50px 0;
   }
+  .sec-heading {
+    @include sectionHeading;
+  }
   .categories {
     display: flex;
     flex-flow: wrap;

@@ -16,6 +16,7 @@ const Category = () => {
 
   return (
     <div className="shop-by-category">
+      <div className="sec-heading">Categories</div>
       <div className="categories">
         {categoryData.map((category: any, index: number) => (
           <Link
