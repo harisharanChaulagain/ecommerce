@@ -1,12 +1,12 @@
-import axios from "axios";
+import { Axios } from "../lib/Axios";
 import { useMutation } from "react-query";
 
 //update products
 export const useUpdateProduct = () => {
   const putRequest = async (productId: string, updatedData: any) => {
     try {
-      const response = await axios.put(
-        `http://localhost:3001/api/v1/products/${productId}`,
+      const response = await Axios.put(
+        `/api/v1/products/${productId}`,
         updatedData
       );
 
@@ -29,8 +29,8 @@ export const useUpdateProduct = () => {
 export const useUpdateCategory = () => {
   const putRequest = async (categoryId: string, updatedData: any) => {
     try {
-      const response = await axios.put(
-        `http://localhost:3001/api/v1/categories/${categoryId}`,
+      const response = await Axios.put(
+        `/api/v1/categories/${categoryId}`,
         updatedData
       );
 

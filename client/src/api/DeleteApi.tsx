@@ -1,4 +1,4 @@
-import axios from "axios";
+import { Axios } from "../lib/Axios";
 import { useMutation, useQueryClient } from "react-query";
 
 // Delete product
@@ -7,9 +7,7 @@ export const useDeleteProduct = () => {
 
   const deleteRequest = async (productId: string) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3001/api/v1/products/${productId}`
-      );
+      const response = await Axios.delete(`/api/v1/products/${productId}`);
 
       console.log("Response from API:", response.data);
 
@@ -31,9 +29,7 @@ export const useDeleteCategory = () => {
 
   const deleteRequest = async (categoryId: string) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3001/api/v1/categories/${categoryId}`
-      );
+      const response = await Axios.delete(`/api/v1/categories/${categoryId}`);
 
       console.log("Response from API:", response.data);
 

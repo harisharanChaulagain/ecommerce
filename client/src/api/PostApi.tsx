@@ -1,4 +1,4 @@
-import axios from "axios";
+import { Axios } from "../lib/Axios";
 import { useMutation } from "react-query";
 import Cookies from "js-cookie";
 
@@ -6,15 +6,11 @@ import Cookies from "js-cookie";
 export const usePostCategory = () => {
   const postRequest = async (data: FormData) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/categories",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await Axios.post("/api/v1/categories", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       console.log("Response from API:", response.data);
     } catch (error) {
@@ -31,15 +27,11 @@ export const usePostCategory = () => {
 export const usePostProduct = () => {
   const postRequest = async (data: FormData) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/products",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await Axios.post("/api/v1/products", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       console.log("Response from API:", response.data);
     } catch (error) {
@@ -56,15 +48,11 @@ export const usePostProduct = () => {
 export const useUserCreate = () => {
   const postRequest = async (data: FormData) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/users",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await Axios.post("/api/v1/users", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       console.log("Response from API:", response.data);
     } catch (error) {
@@ -81,15 +69,11 @@ export const useUserCreate = () => {
 export const useUserLogin = () => {
   const postRequest = async (data: FormData) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/users/login",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await Axios.post("/api/v1/users/login", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       const token = response.data.token;
       Cookies.set("token", token, { expires: 1 / 24 });
       return response;
@@ -108,15 +92,11 @@ export const useUserLogin = () => {
 export const useAdminLogin = () => {
   const postRequest = async (data: FormData) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/admins/login",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await Axios.post("/api/v1/admins/login", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       const adminToken = response.data.adminToken;
       Cookies.set("adminToken", adminToken, { expires: 1 / 24 });
       return response;
@@ -135,10 +115,7 @@ export const useAdminLogin = () => {
 export const useUpdateProductQuantities = () => {
   const updateRequest = async (data: any) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/products/checkout",
-        data
-      );
+      const response = await Axios.post("/api/v1/products/checkout", data);
 
       console.log("Response from API:", response.data);
     } catch (error) {

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import myKey from "./KhaltiKey";
-import axios from "axios";
+import { Axios } from "../../lib/Axios";
 import { toast } from "react-toastify";
 import { Context } from "../../utils/context";
 import { useUpdateProductQuantities } from "../../api/PostApi";
@@ -21,8 +21,7 @@ const config = (products: any) => {
           products: productUpdates,
         });
 
-        axios
-          .post("http://localhost:3001/api/v1/verify-payment")
+        Axios.post("/api/v1/verify-payment")
           .then((response) => {
             console.log(response.data);
             toast.success("Payment Successful!");

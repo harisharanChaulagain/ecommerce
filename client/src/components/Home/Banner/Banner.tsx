@@ -28,7 +28,7 @@ const Banner = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImageIndex((prevIndex) =>
-        prevIndex === productData.length - 1 ? 0 : prevIndex + 1
+        prevIndex === productData?.length - 1 ? 0 : prevIndex + 1
       );
     }, 5000);
 
