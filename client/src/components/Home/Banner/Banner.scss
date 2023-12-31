@@ -18,35 +18,13 @@
       flex-direction: row;
       max-width: 1200px;
     }
-    .image-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 50%;
-      .prev-button {
-        cursor: pointer;
-      }
-      .banner-img {
-        z-index: 9;
-        width: 200px;
-        height: 200px;
-        @include md {
-          width: 500px;
-          height: 500px;
-        }
-        @include xxl {
-          width: 600px;
-          height: 600px;
-        }
-      }
-    }
     .text-content {
       color: white;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 50%;
+      width: 40%;
       @include md {
         position: absolute;
         left: 50px;
@@ -93,6 +71,28 @@
           &:hover {
             opacity: 0.6;
           }
+        }
+      }
+    }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60%;
+      .prev-button {
+        cursor: pointer;
+      }
+      .banner-img {
+        z-index: 9;
+        width: 200px;
+        height: 200px;
+        @include md {
+          width: 500px;
+          height: 500px;
+        }
+        @include xxl {
+          width: 600px;
+          height: 600px;
         }
       }
     }
