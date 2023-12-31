@@ -7,7 +7,7 @@ export const usePostCategory = () => {
   const postRequest = async (data: FormData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/categories",
+        "http://localhost:3001/api/v1/categories",
         data,
         {
           headers: {
@@ -32,7 +32,7 @@ export const usePostProduct = () => {
   const postRequest = async (data: FormData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/products",
+        "http://localhost:3001/api/v1/products",
         data,
         {
           headers: {
@@ -56,11 +56,15 @@ export const usePostProduct = () => {
 export const useUserCreate = () => {
   const postRequest = async (data: FormData) => {
     try {
-      const response = await axios.post("http://localhost:3001/users", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:3001/api/v1/users",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       console.log("Response from API:", response.data);
     } catch (error) {
@@ -78,7 +82,7 @@ export const useUserLogin = () => {
   const postRequest = async (data: FormData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/users/login",
+        "http://localhost:3001/api/v1/users/login",
         data,
         {
           headers: {
@@ -105,7 +109,7 @@ export const useAdminLogin = () => {
   const postRequest = async (data: FormData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/admins/login",
+        "http://localhost:3001/api/v1/admins/login",
         data,
         {
           headers: {
@@ -132,7 +136,7 @@ export const useUpdateProductQuantities = () => {
   const updateRequest = async (data: any) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/products/checkout",
+        "http://localhost:3001/api/v1/products/checkout",
         data
       );
 

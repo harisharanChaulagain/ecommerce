@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchCategoryData = async (): Promise<any> => {
   try {
-    const response = await axios.get("http://localhost:3001/categories");
+    const response = await axios.get("http://localhost:3001/api/v1/categories");
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch category data from API");
@@ -16,7 +16,7 @@ export const useCategory = () => {
 
 const fetchProductData = async (): Promise<any> => {
   try {
-    const response = await axios.get("http://localhost:3001/products");
+    const response = await axios.get("http://localhost:3001/api/v1/products");
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch products data from API");
@@ -30,7 +30,7 @@ export const useProduct = () => {
 const fetchSearchProductData = async (productName: string): Promise<any> => {
   try {
     const response = await axios.get(
-      `http://localhost:3001/products/search?productName=${productName}`
+      `http://localhost:3001/api/v1/products/search?productName=${productName}`
     );
     return response.data;
   } catch (error) {
@@ -53,7 +53,9 @@ export const useSearchProduct = (productName: string) => {
 // userDetails
 const fetchUserData = async (): Promise<any> => {
   try {
-    const response = await axios.get("http://localhost:3001/user/details");
+    const response = await axios.get(
+      "http://localhost:3001/api/v1/user/details"
+    );
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch user data from API");

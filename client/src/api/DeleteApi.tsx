@@ -8,7 +8,7 @@ export const useDeleteProduct = () => {
   const deleteRequest = async (productId: string) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3001/products/${productId}`
+        `http://localhost:3001/api/v1/products/${productId}`
       );
 
       console.log("Response from API:", response.data);
@@ -32,7 +32,7 @@ export const useDeleteCategory = () => {
   const deleteRequest = async (categoryId: string) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3001/categories/${categoryId}`
+        `http://localhost:3001/api/v1/categories/${categoryId}`
       );
 
       console.log("Response from API:", response.data);

@@ -22,7 +22,7 @@ const config = (products: any) => {
         });
 
         axios
-          .post("http://localhost:3001/verify-payment")
+          .post("http://localhost:3001/api/v1/verify-payment")
           .then((response) => {
             console.log(response.data);
             toast.success("Payment Successful!");
