@@ -137,7 +137,6 @@ const Header = () => {
               window.scrollTo(0, 0);
             }}
           >
-            <img src={logo} alt="logo" style={{ height: "30px" }} />
             Hamro Bazar
           </div>
           <div className="right">
@@ -173,6 +172,9 @@ const Header = () => {
                 )}
               </span>
             )}
+            <span className="profile-section">
+              {isLoggedIn() && <img src={logo} alt="logo" />}
+            </span>
           </div>
         </div>
       </div>
