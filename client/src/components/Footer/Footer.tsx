@@ -55,7 +55,7 @@ const Footer = () => {
       </div>
       <div className="bottom-bar">
         <div className="bottom-bar-content">
-          <span className="text">© 2023 Hamro Bazar</span>
+          <span className="text">© {new Date().getFullYear()} Hamro Bazar</span>
           <img
             src={PaymentImage}
             alt="payment method img"

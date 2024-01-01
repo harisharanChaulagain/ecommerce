@@ -13,7 +13,7 @@ import { Context } from "../../utils/context";
 import NewCategory from "../Category/NewCategory/NewCategory";
 import NewProduct from "../Products/NewProduct/NewProduct";
 import logo from "../../../public/logo.png";
-import ProfileItem from "./ProfileDetails/ProfileItem";
+import ProfileItem from "./ProfileDetails/ProfileItem/ProfileItem";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);

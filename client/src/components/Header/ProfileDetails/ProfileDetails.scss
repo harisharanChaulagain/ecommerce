@@ -1,0 +1,107 @@
+@import "../../../css-config/mixins.scss";
+.profile-main {
+  margin: 20px 80px;
+  .title {
+    font-size: 24px;
+    font-weight: 500;
+    @include md {
+      font-size: 30px;
+    }
+  }
+  hr {
+    height: 1px;
+    border: 1px solid #8e2de2;
+    background-color: #8e2de2;
+    margin: 5px 0;
+  }
+  .company-details {
+    .heading {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      @include md {
+        flex-direction: row;
+      }
+      span {
+        font-size: 18px;
+        font-weight: 500;
+        @include md {
+          font-size: 24px;
+        }
+      }
+      button {
+        border: none;
+        background: #5755d6;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        svg {
+          font-size: 18px;
+        }
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+    .logo-section {
+      display: flex;
+      flex-direction: column;
+      margin: 20px 0;
+      @include md {
+        gap: 20px;
+        flex-direction: row;
+      }
+      .logo {
+        background: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: fit-content;
+
+        img {
+          width: 70px;
+          padding: 10px;
+        }
+      }
+      .items {
+        display: flex;
+        flex-direction: column;
+        .name {
+          font-size: 20px;
+          font-weight: 500;
+          @include md {
+            font-size: 30px;
+          }
+        }
+        .email {
+          color: gray;
+        }
+      }
+    }
+  }
+  .other-details {
+    svg {
+      font-size: 30px;
+      color: #5755d6;
+    }
+    .top-section {
+      display: flex;
+      justify-content: space-between;
+      .other-heading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 50%;
+        margin: 10px;
+        .small-title {
+          color: gray;
+        }
+      }
+    }
+  }
+}

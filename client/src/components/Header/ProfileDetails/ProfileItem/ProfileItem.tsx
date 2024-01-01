@@ -6,7 +6,7 @@ import { IoMdSettings } from "react-icons/io";
 import { BiLogOut } from "react-icons/bi";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import { Context } from "../../../utils/context";
+import { Context } from "../../../../utils/context";
 
 const ProfileItem = () => {
   const navigate = useNavigate();
@@ -39,10 +39,13 @@ const ProfileItem = () => {
     setProductIds([]);
     toast.success("Log Out Successfully!");
   };
+  const navigateToProfile = () => {
+    navigate("/profile/details");
+  };
   return (
     <div className={`profile-dropdown ${scrolled ? "sticky-header" : ""}`}>
       <div className="dropdown-content">
-        <div>
+        <div onClick={navigateToProfile}>
           <CgProfile />
           <span>Profile</span>
         </div>
