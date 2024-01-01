@@ -63,3 +63,16 @@ const fetchUserData = async (): Promise<any> => {
 export const useUserDetails = () => {
   return useQuery<any>("userDetailsData", fetchUserData);
 };
+
+//company details
+const fetchCompanyData = async (): Promise<any> => {
+  try {
+    const response = await Axios.get("/api/v1/company-details");
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch company details from API");
+  }
+};
+export const useCompanyDetails = () => {
+  return useQuery<any>("companyDetailsData", fetchCompanyData);
+};
