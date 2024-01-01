@@ -45,3 +45,14 @@ const isValidImageType = (mimeType: string): boolean => {
     mimeType.startsWith("image/jpg")
   );
 };
+
+//get company details
+export const getCompanyDetails = async (req: Request, res: Response) => {
+  try {
+    const CompanyDetail = await CompanyDetails.find();
+    res.json(CompanyDetail);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

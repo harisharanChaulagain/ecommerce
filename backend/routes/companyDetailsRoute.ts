@@ -7,5 +7,9 @@ router.post(
   "/api/v1/company-details",
   companyDetailsController.createCompanyDetails
 );
+router.get(
+  "/api/v1/company-details",
+  companyDetailsController.getCompanyDetails
+);
 
 export default router;
