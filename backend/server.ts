@@ -8,6 +8,7 @@ import fileUpload from "express-fileupload";
 import paymentRoutes from "./routes/paymentRoutes";
 import userRoutes from "./routes/userRoutes";
 import adminRoutes from "./routes/adminRoutes";
+import companyDetailsRoute from "./routes/companyDetailsRoute";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -37,6 +38,7 @@ mongoose
     app.use(paymentRoutes);
     app.use(userRoutes);
     app.use(adminRoutes);
+    app.use(companyDetailsRoute);
 
     // Start Server
     app.listen(PORT, () => {
