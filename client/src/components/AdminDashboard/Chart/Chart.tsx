@@ -6,7 +6,6 @@ import "./Chart.scss";
 
 const ChartComponent: React.FC = () => {
   const { data: categoryData }: any = useCategory();
-  console.log("category", categoryData);
   const chartContainerId = "uniqueContainerId";
   const chartRef: any = useRef<Chart | null>(null);
 
