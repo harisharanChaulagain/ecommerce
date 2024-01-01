@@ -12,8 +12,10 @@ import DropDownItem from "./DropDownItem/DropDownItem";
 import { Context } from "../../utils/context";
 import NewCategory from "../Category/NewCategory/NewCategory";
 import NewProduct from "../Products/NewProduct/NewProduct";
-import logo from "../../../public/logo.png";
 import ProfileItem from "./ProfileDetails/ProfileItem/ProfileItem";
+import { useCompanyDetails } from "../../api/GetApi";
+import { bufferToDataURL } from "../../utils/imageUtils";
+import { companyDetails } from "./ProfileDetails/ProfileDetails";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -28,6 +30,8 @@ const Header = () => {
   const context = useContext<any>(Context);
   const { productQuantities, showProfile, setShowProfile }: any =
     useContext(Context);
+
+  const { data: companyData } = useCompanyDetails();
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -101,86 +105,96 @@ const Header = () => {
 
   return (
     <>
-      <div className={`main-header ${scrolled ? "sticky-header" : ""}`}>
-        <div className="header-content">
-          <ul className="left">
-            <li
+      {companyData?.map((detail: companyDetails) => (
+        <div
+          className={`main-header ${scrolled ? "sticky-header" : ""}`}
+          key={detail?._id}
+        >
+          <div className="header-content">
+            <ul className="left">
+              <li
+                onClick={() => {
+                  navigate("/");
+                  window.scrollTo(0, 0);
+                }}
+              >
+                Home
+              </li>
+              <li onClick={handleAboutClick}>About</li>
+              <li
+                onClick={() => {
+                  navigate("/category/:id");
+                  window.scrollTo(0, 0);
+                }}
+              >
+                Categories
+              </li>
+              {isAdminLoggedIn() && (
+                <li
+                  className="dropdown-item"
+                  onClick={handleDropdownClick}
+                  ref={dropdownRef}
+                >
+                  More... <FaAngleDown />
+                </li>
+              )}
+            </ul>
+            <div
+              className="center"
               onClick={() => {
                 navigate("/");
                 window.scrollTo(0, 0);
               }}
             >
-              Home
-            </li>
-            <li onClick={handleAboutClick}>About</li>
-            <li
-              onClick={() => {
-                navigate("/category/:id");
-                window.scrollTo(0, 0);
-              }}
-            >
-              Categories
-            </li>
-            {isAdminLoggedIn() && (
-              <li
-                className="dropdown-item"
-                onClick={handleDropdownClick}
-                ref={dropdownRef}
-              >
-                More... <FaAngleDown />
-              </li>
-            )}
-          </ul>
-          <div
-            className="center"
-            onClick={() => {
-              navigate("/");
-              window.scrollTo(0, 0);
-            }}
-          >
-            Hamro Bazar
-          </div>
-          <div className="right">
-            <TbSearch onClick={() => setShowSearch(true)} />
-            {!isLoggedIn() && (
-              <FaUser
-                onClick={() => {
-                  navigate("/login");
-                  window.scrollTo(0, 0);
-                }}
-              />
-            )}
-            {!isLoggedIn() && (
-              <div
-                onClick={() => {
-                  navigate("/register");
-                  window.scrollTo(0, 0);
-                }}
-                className="sign-up"
-              >
-                Sign Up
-              </div>
-            )}
-            {isUserLoggedIn() && (
-              <span className="cart-icon" onClick={() => setShowCart(true)}>
-                <CgShoppingCart />
-                {productQuantities.length > 0 && (
-                  <span>{productQuantities.length}</span>
-                )}
-              </span>
-            )}
-            {isLoggedIn() && (
-              <span
-                className="profile-section"
-                onClick={handleProfileItem}
-                ref={profileRef}
-              >
-                <img src={logo} alt="logo" />
-              </span>
-            )}
+              {detail?.name}
+            </div>
+            <div className="right">
+              <TbSearch onClick={() => setShowSearch(true)} />
+              {!isLoggedIn() && (
+                <FaUser
+                  onClick={() => {
+                    navigate("/login");
+                    window.scrollTo(0, 0);
+                  }}
+                />
+              )}
+              {!isLoggedIn() && (
+                <div
+                  onClick={() => {
+                    navigate("/register");
+                    window.scrollTo(0, 0);
+                  }}
+                  className="sign-up"
+                >
+                  Sign Up
+                </div>
+              )}
+              {isUserLoggedIn() && (
+                <span className="cart-icon" onClick={() => setShowCart(true)}>
+                  <CgShoppingCart />
+                  {productQuantities.length > 0 && (
+                    <span>{productQuantities.length}</span>
+                  )}
+                </span>
+              )}
+              {isLoggedIn() && (
+                <span
+                  className="profile-section"
+                  onClick={handleProfileItem}
+                  ref={profileRef}
+                >
+                  {detail?.logo?.data && (
+                    <img
+                      src={bufferToDataURL(detail?.logo?.data)}
+                      alt={detail.name}
+                    />
+                  )}
+                </span>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      ))}
       {showCart && <Cart setShowCart={setShowCart} />}
       {showSearch && <Search setShowSearch={setShowSearch} />}
       {newCategory && <NewCategory isUpdate={false} />}

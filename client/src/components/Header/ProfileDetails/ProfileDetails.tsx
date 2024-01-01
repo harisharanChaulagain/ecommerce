@@ -12,23 +12,25 @@ import {
 import { useCompanyDetails } from "../../../api/GetApi";
 import { bufferToDataURL } from "../../../utils/imageUtils";
 
+export interface companyDetails {
+  name: string;
+  email: string;
+  address: string;
+  phone: string;
+  pan: string;
+  logo: {
+    data: Buffer;
+  };
+  _id: string;
+}
+
 const ProfileDetails = () => {
   const { data: companyData } = useCompanyDetails();
-  interface companyDetails {
-    name: string;
-    email: string;
-    address: string;
-    phone: string;
-    pan: string;
-    logo: {
-      data: Buffer;
-    };
-  }
 
   return (
     <div className="profile-main">
       {companyData?.map((detail: companyDetails) => (
-        <div key={detail?.name}>
+        <div key={detail?._id}>
           <div className="title">Profile</div>
           <hr />
           <div className="company-details">
