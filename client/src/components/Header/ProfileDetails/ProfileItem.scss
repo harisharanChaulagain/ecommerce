@@ -1,18 +1,20 @@
 @import "../../../css-config/mixins.scss";
-.dropdown-item {
+.profile-dropdown {
   position: relative;
   .dropdown-content {
     position: absolute;
-    left: 27%;
-    width: 200px;
+    right: 0%;
+    width: 180px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 100;
     padding: 10px;
+    font-weight: 500;
     div {
       display: flex;
       align-items: center;
       padding: 8px 12px;
+      gap: 20px;
       cursor: pointer;
       transition: background-color 0.3s ease;
 

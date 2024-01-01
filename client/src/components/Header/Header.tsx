@@ -6,7 +6,6 @@ import { CgShoppingCart } from "react-icons/cg";
 import { FaUser } from "react-icons/fa";
 import Search from "./Search/Search";
 import Cart from "../Cart/Cart";
-import { toast } from "react-toastify";
 import "./Header.scss";
 import { FaAngleDown } from "react-icons/fa";
 import DropDownItem from "./DropDownItem/DropDownItem";
@@ -14,6 +13,7 @@ import { Context } from "../../utils/context";
 import NewCategory from "../Category/NewCategory/NewCategory";
 import NewProduct from "../Products/NewProduct/NewProduct";
 import logo from "../../../public/logo.png";
+import ProfileItem from "./ProfileDetails/ProfileItem";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -24,8 +24,9 @@ const Header = () => {
   const [newProduct, setNewProduct] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef<any>(null);
+  const profileRef = useRef<any>(null);
   const context = useContext<any>(Context);
-  const { productQuantities, setProductQuantities, setProductIds }: any =
+  const { productQuantities, showProfile, setShowProfile }: any =
     useContext(Context);
 
   const handleScroll = () => {
@@ -46,6 +47,12 @@ const Header = () => {
         !dropdownRef.current.contains(event.target as Node)
       ) {
         setShowDropdown(false);
+      }
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        setShowProfile(false);
       }
     };
     document.addEventListener("click", handleClickOutside);
@@ -75,6 +82,10 @@ const Header = () => {
     setShowDropdown(!showDropdown);
     window.scrollTo(0, 0);
   };
+  const handleProfileItem = () => {
+    setShowProfile(!showProfile);
+    window.scrollTo(0, 0);
+  };
 
   const isUserLoggedIn = () => {
     return Cookies.get("token") !== undefined;
@@ -86,16 +97,6 @@ const Header = () => {
 
   const isLoggedIn = () => {
     return isUserLoggedIn() || isAdminLoggedIn();
-  };
-
-  const handleSignOut = () => {
-    Cookies.remove("token");
-    Cookies.remove("adminToken");
-    navigate("/");
-    setShowDropdown(false);
-    setProductQuantities([]);
-    setProductIds([]);
-    toast.success("Log Out Successfully!");
   };
 
   return (
@@ -149,11 +150,7 @@ const Header = () => {
                 }}
               />
             )}
-            {isLoggedIn() ? (
-              <div onClick={handleSignOut} className="log-out">
-                Log Out
-              </div>
-            ) : (
+            {!isLoggedIn() && (
               <div
                 onClick={() => {
                   navigate("/register");
@@ -172,9 +169,15 @@ const Header = () => {
                 )}
               </span>
             )}
-            <span className="profile-section">
-              {isLoggedIn() && <img src={logo} alt="logo" />}
-            </span>
+            {isLoggedIn() && (
+              <span
+                className="profile-section"
+                onClick={handleProfileItem}
+                ref={profileRef}
+              >
+                <img src={logo} alt="logo" />
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -183,6 +186,7 @@ const Header = () => {
       {newCategory && <NewCategory isUpdate={false} />}
       {newProduct && <NewProduct isUpdate={false} />}
       {showDropdown && <DropDownItem />}
+      {showProfile && <ProfileItem />}
     </>
   );
 };
