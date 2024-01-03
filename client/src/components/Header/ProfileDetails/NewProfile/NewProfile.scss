@@ -1,0 +1,4 @@
+@import "../../../../css-config/mixins.scss";
+.new-profile-overlay {
+  @include overlay-styles;
+}

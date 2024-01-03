@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProfileDetails.scss";
 import { FaRegEdit } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { useCompanyDetails } from "../../../api/GetApi";
 import { bufferToDataURL } from "../../../utils/imageUtils";
+import NewProfile from "./NewProfile/NewProfile";
 
 export interface companyDetails {
   name: string;
@@ -25,6 +26,7 @@ export interface companyDetails {
 }
 
 const ProfileDetails = () => {
+  const [showProfile, setShowProfile] = useState(false);
   const { data: companyData } = useCompanyDetails();
 
   return (
@@ -36,7 +38,7 @@ const ProfileDetails = () => {
           <div className="company-details">
             <div className="heading">
               <span>Company Details</span>
-              <button>
+              <button onClick={() => setShowProfile(true)}>
                 <FaRegEdit />
                 <span> Edit Company Details</span>
               </button>
@@ -112,6 +114,7 @@ const ProfileDetails = () => {
           </div>
         </div>
       ))}
+      {showProfile && <NewProfile />}
     </div>
   );
 };
