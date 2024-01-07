@@ -57,7 +57,7 @@ const AdminLogin = () => {
     <div className="login-main-admin">
       <div className="top-section">Hello Admin!</div>
       <form className="input-fields" onSubmit={formik.handleSubmit}>
-        <div>
+        <div className="mb-20">
           <label>User Name:</label>
           <input
             type="text"
@@ -69,7 +69,7 @@ const AdminLogin = () => {
             <div className="error">{formik.errors.username}</div>
           ) : null}
         </div>
-        <div>
+        <div className="mb-20">
           <label>Password:</label>
           <div className="password-input">
             <input

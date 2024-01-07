@@ -8,7 +8,7 @@ import NewProduct from "../NewProduct/NewProduct";
 import { Context } from "../../../utils/context";
 
 const ProductTable = () => {
-  const { data: productData, isLoading } = useProduct();
+  const { data: productData, isLoading, refetch } = useProduct();
   const { mutation: deleteProduct } = useDeleteProduct();
   const { setNewProduct, isUpdate, setIsUpdate, newProduct }: any =
     useContext(Context);
@@ -17,7 +17,11 @@ const ProductTable = () => {
     try {
       const userConfirmed = window.confirm("Are you sure to delete?");
       if (userConfirmed) {
-        await deleteProduct.mutate(productId);
+        await deleteProduct.mutate(productId, {
+          onSuccess: () => {
+            refetch();
+          },
+        });
       }
     } catch (error) {}
   };

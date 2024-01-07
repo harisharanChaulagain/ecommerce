@@ -22,7 +22,7 @@ const NewProduct = ({
   const { data: categoryData } = useCategory();
   const { mutation } = usePostProduct();
   const { putMutation } = useUpdateProduct();
-  const { data: existingProductData } = useProduct();
+  const { data: existingProductData, refetch } = useProduct();
 
   const categories =
     categoryData?.map((category: any) => ({
@@ -109,6 +109,7 @@ const NewProduct = ({
                 toast.success("Product updated successfully!");
                 resetForm();
                 setNewProduct(false);
+                refetch();
               },
               onError: (error) => {
                 console.error("Error updating product:", error);
@@ -119,10 +120,14 @@ const NewProduct = ({
           console.error("Error: Product data or _id is undefined");
         }
       } else {
-        await mutation.mutate(formData);
-        toast.success("Product added successfully!");
-        resetForm();
-        setNewProduct(false);
+        await mutation.mutate(formData, {
+          onSuccess: () => {
+            toast.success("Product added successfully!");
+            resetForm();
+            setNewProduct(false);
+            refetch();
+          },
+        });
       }
     } catch (error) {
       console.error(
