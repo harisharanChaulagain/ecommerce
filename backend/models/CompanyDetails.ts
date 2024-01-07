@@ -6,6 +6,7 @@ export interface ICompanyDetails extends Document {
   address: string;
   phone: string;
   pan: string;
+  description: string;
   logo: Buffer;
 }
 
@@ -15,10 +16,11 @@ const companyDtailsSchema: Schema = new mongoose.Schema({
   address: { type: String, required: true },
   phone: { type: String, required: true },
   pan: { type: String, required: true },
+  description: { type: String, require: true },
   logo: { type: Buffer },
 });
 
 export default mongoose.model<ICompanyDetails>(
-  "CompantDetails",
+  "CompanyDetails",
   companyDtailsSchema
 );

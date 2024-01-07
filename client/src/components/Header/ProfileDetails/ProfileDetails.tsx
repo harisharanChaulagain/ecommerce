@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "./ProfileDetails.scss";
 import { FaRegEdit } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
@@ -12,6 +12,7 @@ import {
 import { useCompanyDetails } from "../../../api/GetApi";
 import { bufferToDataURL } from "../../../utils/imageUtils";
 import NewProfile from "./NewProfile/NewProfile";
+import { Context } from "../../../utils/context";
 
 export interface companyDetails {
   name: string;
@@ -26,8 +27,13 @@ export interface companyDetails {
 }
 
 const ProfileDetails = () => {
-  const [showProfile, setShowProfile] = useState(false);
+  const { updateCompanyDetails, setUpdateCompanyDetails }: any =
+    useContext(Context);
   const { data: companyData } = useCompanyDetails();
+  if (!companyData || companyData.length === 0) {
+    return null;
+  }
+  const id = companyData[0]?._id;
 
   return (
     <div className="profile-main">
@@ -38,7 +44,7 @@ const ProfileDetails = () => {
           <div className="company-details">
             <div className="heading">
               <span>Company Details</span>
-              <button onClick={() => setShowProfile(true)}>
+              <button onClick={() => setUpdateCompanyDetails(true)}>
                 <FaRegEdit />
                 <span> Edit Company Details</span>
               </button>
@@ -114,7 +120,7 @@ const ProfileDetails = () => {
           </div>
         </div>
       ))}
-      {showProfile && <NewProfile />}
+      {updateCompanyDetails && <NewProfile isUpdate={true} cId={id} />}
     </div>
   );
 };

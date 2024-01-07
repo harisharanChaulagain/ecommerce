@@ -56,3 +56,35 @@ export const getCompanyDetails = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+//update company details
+export const updateCompanyDetails = async (req: Request, res: Response) => {
+  try {
+    const cId = req.params.id;
+    const updates = req.body;
+
+    if (!cId) {
+      return res.status(400).json({
+        error: "Company Id is required:",
+      });
+    }
+
+    const company = await CompanyDetails.findById(cId);
+    if (!company) {
+      return res.status(404).json({ error: "Company not found." });
+    }
+    for (const key in updates) {
+      if (Object.prototype.hasOwnProperty.call(updates, key)) {
+        (company as any)[key] = updates[key];
+      }
+    }
+    await company.save();
+    res.status(200).json({
+      message: "Company details updated successfully!!",
+      updatedDetails: company,
+    });
+  } catch (error) {
+    console.error("Error updating company details", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

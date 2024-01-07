@@ -11,5 +11,9 @@ router.get(
   "/api/v1/company-details",
   companyDetailsController.getCompanyDetails
 );
+router.put(
+  "/api/v1/company-details/:id",
+  companyDetailsController.updateCompanyDetails
+);
 
 export default router;
