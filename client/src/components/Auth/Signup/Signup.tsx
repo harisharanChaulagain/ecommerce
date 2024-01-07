@@ -128,10 +128,10 @@ const Signup = () => {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </div>
             </div>
+            {formik.touched.password && formik.errors.password ? (
+              <div className="error">{formik.errors.password}</div>
+            ) : null}
           </div>
-          {formik.touched.password && formik.errors.password ? (
-            <div className="error">{formik.errors.password}</div>
-          ) : null}
         </div>
         <button>Sign Up</button>
       </form>

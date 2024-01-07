@@ -1,10 +1,11 @@
 import express from "express";
-import UserController from "../controllers/UserController";
+import * as userController from "../controllers/UserController";
 
 const router = express.Router();
 
-router.post("/api/v1/users", UserController.createUser);
-router.post("/api/v1/users/login", UserController.loginUser);
-router.get("/api/v1/user/details", UserController.getUserDetails);
+router.post("/api/v1/users", userController.createUser);
+router.post("/api/v1/users/login", userController.loginUser);
+router.get("/api/v1/user/counts", userController.getTotalUserCounts);
+router.get("/api/v1/user-details", userController.getUserDetails);
 
 export default router;

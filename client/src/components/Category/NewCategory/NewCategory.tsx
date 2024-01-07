@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { useUpdateCategory } from "../../../api/PutApi";
 import { useCategory } from "../../../api/GetApi";
+import { ICategory } from "../../Home/Category/Category";
 
 const NewCategory = ({
   isUpdate,
@@ -19,11 +20,11 @@ const NewCategory = ({
   const { setNewCategory }: any = useContext(Context);
   const { mutation } = usePostCategory();
   const { putMutation } = useUpdateCategory();
-  const { data: existingProductData } = useCategory();
+  const { data: existingProductData, refetch } = useCategory();
   useEffect(() => {
     if (isUpdate) {
       const categoryToUpdate = existingProductData.find(
-        (category: any) => category._id === categoryId
+        (category: ICategory) => category._id === categoryId
       );
       if (categoryToUpdate) {
         formik.setValues({
@@ -70,6 +71,7 @@ const NewCategory = ({
                 toast.success("Category updated successfully!");
                 resetForm();
                 setNewCategory(false);
+                refetch();
               },
               onError: (error) => {
                 console.error("Error updating category:", error);
@@ -80,10 +82,14 @@ const NewCategory = ({
           console.error("Error: Category data or _id is undefined");
         }
       } else {
-        await mutation.mutate(formData);
-        toast.success("Category added successfully!");
-        resetForm();
-        setNewCategory(false);
+        await mutation.mutate(formData, {
+          onSuccess: () => {
+            toast.success("Category added successfully!");
+            resetForm();
+            setNewCategory(false);
+            refetch();
+          },
+        });
       }
     } catch (error) {
       console.error(

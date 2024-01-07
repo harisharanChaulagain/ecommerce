@@ -50,18 +50,18 @@ export const useSearchProduct = (productName: string) => {
   );
 };
 
-// userDetails
-const fetchUserData = async (): Promise<any> => {
+// usersCounts
+const fetchUsersCountData = async (): Promise<any> => {
   try {
-    const response = await Axios.get("/api/v1/user/details");
+    const response = await Axios.get("/api/v1/user/counts");
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch user data from API");
   }
 };
 
-export const useUserDetails = () => {
-  return useQuery<any>("userDetailsData", fetchUserData);
+export const useUsersCount = () => {
+  return useQuery<any>("usersCountsData", fetchUsersCountData);
 };
 
 //company details
@@ -75,4 +75,17 @@ const fetchCompanyData = async (): Promise<any> => {
 };
 export const useCompanyDetails = () => {
   return useQuery<any>("companyDetailsData", fetchCompanyData);
+};
+
+// userDetails
+const fetchUsersDetails = async (): Promise<any> => {
+  try {
+    const response = await Axios.get("/api/v1/user-details");
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch user details from API");
+  }
+};
+export const useUsersDetails = () => {
+  return useQuery<any>("userDetailsData", fetchUsersDetails);
 };

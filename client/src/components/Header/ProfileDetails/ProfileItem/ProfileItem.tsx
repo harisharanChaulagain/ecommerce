@@ -33,6 +33,7 @@ const ProfileItem = () => {
   const handleSignOut = () => {
     Cookies.remove("token");
     Cookies.remove("adminToken");
+    Cookies.remove("userId");
     setShowProfile(false);
     navigate("/");
     setProductQuantities([]);

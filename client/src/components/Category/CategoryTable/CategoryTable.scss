@@ -13,6 +13,10 @@
     th {
       background-color: #f2f2f2;
     }
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 50%;
+    }
   }
 
   .img-container {
