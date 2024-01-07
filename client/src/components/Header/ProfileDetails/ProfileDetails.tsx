@@ -151,7 +151,7 @@ const ProfileDetails = () => {
         <div>
           {filteredUserData?.map((detail: UserDetails) => (
             <div key={detail?._id}>
-              <div className="title">Profile</div>
+              <div className="title">Personal Details</div>
               <hr />
               <div className="other-details">
                 <div className="top-section">
