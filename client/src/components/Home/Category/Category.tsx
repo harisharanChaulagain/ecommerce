@@ -3,6 +3,13 @@ import "./Category.scss";
 import { useCategory } from "../../../api/GetApi";
 import { Link } from "react-router-dom";
 
+export interface ICategory {
+  name: string;
+  image: string;
+  _id: string;
+  itemCount: number;
+}
+
 const Category = () => {
   const { data: categoryData, isLoading, isError } = useCategory();
 
@@ -18,7 +25,7 @@ const Category = () => {
     <div className="shop-by-category">
       <div className="sec-heading">Categories</div>
       <div className="categories">
-        {categoryData.map((category: any, index: number) => (
+        {categoryData.map((category: ICategory, index: number) => (
           <Link
             to={`/category/${category.name}`}
             key={index}

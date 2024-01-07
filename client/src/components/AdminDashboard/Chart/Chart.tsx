@@ -3,14 +3,17 @@ import { Pie } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { useCategory } from "../../../api/GetApi";
 import "./Chart.scss";
+import { ICategory } from "../../Home/Category/Category";
 
 const ChartComponent: React.FC = () => {
   const { data: categoryData }: any = useCategory();
   const chartContainerId = "uniqueContainerId";
   const chartRef: any = useRef<Chart | null>(null);
 
-  const labels = categoryData?.map((category: any) => category?.name);
-  const dataValues = categoryData?.map((category: any) => category?.itemCount);
+  const labels = categoryData?.map((category: ICategory) => category?.name);
+  const dataValues = categoryData?.map(
+    (category: ICategory) => category?.itemCount
+  );
   const backgroundColors = generateRandomColors(categoryData?.length);
 
   const data = {

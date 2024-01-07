@@ -6,6 +6,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { useDeleteCategory } from "../../../api/DeleteApi";
 import { Context } from "../../../utils/context";
 import NewCategory from "../NewCategory/NewCategory";
+import { ICategory } from "../../Home/Category/Category";
 
 const CategoryTable = () => {
   const { data: categoryData, isLoading, refetch } = useCategory();
@@ -50,7 +51,7 @@ const CategoryTable = () => {
             </tr>
           </thead>
           <tbody>
-            {categoryData.map((item: any, index: number) => (
+            {categoryData.map((item: ICategory, index: number) => (
               <tr key={item._id}>
                 <td>{index + 1}</td>
                 <td>{item.name}</td>

@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { useUpdateCategory } from "../../../api/PutApi";
 import { useCategory } from "../../../api/GetApi";
+import { ICategory } from "../../Home/Category/Category";
 
 const NewCategory = ({
   isUpdate,
@@ -23,7 +24,7 @@ const NewCategory = ({
   useEffect(() => {
     if (isUpdate) {
       const categoryToUpdate = existingProductData.find(
-        (category: any) => category._id === categoryId
+        (category: ICategory) => category._id === categoryId
       );
       if (categoryToUpdate) {
         formik.setValues({

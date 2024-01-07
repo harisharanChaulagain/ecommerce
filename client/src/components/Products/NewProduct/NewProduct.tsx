@@ -10,6 +10,7 @@ import { useProduct } from "../../../api/GetApi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { ICategory } from "../../Home/Category/Category";
 
 const NewProduct = ({
   isUpdate,
@@ -25,7 +26,7 @@ const NewProduct = ({
   const { data: existingProductData, refetch } = useProduct();
 
   const categories =
-    categoryData?.map((category: any) => ({
+    categoryData?.map((category: ICategory) => ({
       value: category.name,
       label: category.name,
     })) || [];
