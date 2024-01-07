@@ -19,7 +19,7 @@ const NewCategory = ({
   const { setNewCategory }: any = useContext(Context);
   const { mutation } = usePostCategory();
   const { putMutation } = useUpdateCategory();
-  const { data: existingProductData } = useCategory();
+  const { data: existingProductData, refetch } = useCategory();
   useEffect(() => {
     if (isUpdate) {
       const categoryToUpdate = existingProductData.find(
@@ -70,6 +70,7 @@ const NewCategory = ({
                 toast.success("Category updated successfully!");
                 resetForm();
                 setNewCategory(false);
+                refetch();
               },
               onError: (error) => {
                 console.error("Error updating category:", error);
@@ -80,10 +81,14 @@ const NewCategory = ({
           console.error("Error: Category data or _id is undefined");
         }
       } else {
-        await mutation.mutate(formData);
-        toast.success("Category added successfully!");
-        resetForm();
-        setNewCategory(false);
+        await mutation.mutate(formData, {
+          onSuccess: () => {
+            toast.success("Category added successfully!");
+            resetForm();
+            setNewCategory(false);
+            refetch();
+          },
+        });
       }
     } catch (error) {
       console.error(

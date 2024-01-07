@@ -8,7 +8,7 @@ import { Context } from "../../../utils/context";
 import NewCategory from "../NewCategory/NewCategory";
 
 const CategoryTable = () => {
-  const { data: categoryData, isLoading } = useCategory();
+  const { data: categoryData, isLoading, refetch } = useCategory();
   const { mutation: deleteCategory } = useDeleteCategory();
   const { setNewCategory, isUpdate, setIsUpdate, newCategory }: any =
     useContext(Context);
@@ -17,7 +17,11 @@ const CategoryTable = () => {
     try {
       const userConfirmed = window.confirm("Are you sure to delete?");
       if (userConfirmed) {
-        await deleteCategory.mutate(categoryId);
+        await deleteCategory.mutate(categoryId, {
+          onSuccess: () => {
+            refetch();
+          },
+        });
       }
     } catch (error) {}
   };

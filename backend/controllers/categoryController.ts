@@ -65,7 +65,7 @@ export const deleteCategoryById = async (req: Request, res: Response) => {
     await Category.deleteOne({ _id: categoryId });
     res.status(200).json({ message: "Category deleted successfully" });
   } catch (error) {
-    res.status(500).json({ erroe: "Internal server error" });
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
