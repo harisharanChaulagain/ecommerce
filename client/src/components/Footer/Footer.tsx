@@ -15,15 +15,7 @@ const Footer = () => {
           <div className="footer-content">
             <div id="about-section" className="col">
               <div className="title">About</div>
-              <div className="text">
-                Step into Hamro Bazar, where each purchase unfolds a distinctive
-                narrative. Explore the seamless blend of tradition and modernity
-                through our diverse collection, echoing the soul of Nepal.
-                Immerse yourself in a cross-cultural shopping experience,
-                uniting quality products with cultural opulence. Begin your
-                quest for extraordinary discoveries right here at Hamro Bazar,
-                where the past harmonizes with the present.
-              </div>
+              <div className="text">{detail?.description}</div>
             </div>
             <div className="col">
               <div className="title">Contact</div>

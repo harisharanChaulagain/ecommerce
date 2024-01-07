@@ -24,6 +24,7 @@ export interface companyDetails {
     data: Buffer;
   };
   _id: string;
+  description: string;
 }
 
 const ProfileDetails = () => {
