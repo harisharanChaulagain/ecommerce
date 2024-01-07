@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Product from "../models/Product";
+import Product, { IProduct } from "../models/Product";
 import path from "path";
 import { UploadedFile } from "express-fileupload";
 
@@ -36,6 +36,7 @@ export const createProduct = async (req: Request, res: Response) => {
       price,
       description,
       image: imageUrl,
+      ratings: [],
     });
     await newProduct.save();
 
@@ -147,14 +148,44 @@ export const updateProduct = async (req: Request, res: Response) => {
       }
     }
     await product.save();
-    res
-      .status(200)
-      .json({
-        message: "Product updated successfully!!",
-        updatedProduct: product,
-      });
+    res.status(200).json({
+      message: "Product updated successfully!!",
+      updatedProduct: product,
+    });
   } catch (error) {
     console.error("Error updating products:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+//rating products
+export const rateProduct = async (req: Request, res: Response) => {
+  try {
+    const productId = req.params.id;
+    const { rating } = req.body;
+
+    if (!productId || !rating) {
+      return res
+        .status(400)
+        .json({ error: "Product id and ratings are required" });
+    }
+
+    const product = (await Product.findById(productId)) as IProduct | null;
+    if (!product) {
+      return res.status(400).json({ error: "Product not found" });
+    }
+
+    product.ratings.push(rating);
+    const totalRating = product.ratings.reduce((sum, r) => sum + r, 0);
+    const averageRating =
+      product.ratings.length > 0 ? totalRating / product.ratings.length : 0;
+
+    product.averageRating = averageRating;
+    await product.save();
+
+    res.status(200).json({ averageRating });
+  } catch (error) {
+    console.error("Error rating product:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

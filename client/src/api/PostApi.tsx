@@ -128,3 +128,24 @@ export const useUpdateProductQuantities = () => {
 
   return { mutation };
 };
+
+//add company details
+export const usePostCompanyDetails = () => {
+  const postRequest = async (data: FormData) => {
+    try {
+      const response = await Axios.post("/api/v1/company-details", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("Response from API:", response.data);
+    } catch (error) {
+      console.error("Error creating company details:", error);
+    }
+  };
+
+  const mutation = useMutation(postRequest);
+
+  return { mutation };
+};

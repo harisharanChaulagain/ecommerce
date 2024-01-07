@@ -10,7 +10,6 @@ import * as Yup from "yup";
 const AdminLogin = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
   const { mutation } = useAdminLogin();
 
   const handleTogglePassword = () => {
@@ -46,6 +45,7 @@ const AdminLogin = () => {
           resetForm();
           navigate("/");
           window.scrollTo(0, 0);
+          localStorage.setItem("isLogin", "true");
         } else {
           toast.error("An unexpected error occurred");
         }

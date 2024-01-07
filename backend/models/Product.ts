@@ -1,12 +1,14 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-interface IProduct extends Document {
+export interface IProduct extends Document {
   name: string;
   category: string;
   units: number;
   price: number;
   description: string;
   image: string;
+  ratings: number[];
+  averageRating: number;
 }
 
 const productSchema: Schema = new mongoose.Schema({
@@ -16,6 +18,8 @@ const productSchema: Schema = new mongoose.Schema({
   price: { type: Number, required: true },
   description: { type: String, required: true },
   image: { type: String, required: true },
+  ratings: { type: [Number], default: [] },
+  averageRating: { type: Number, default: 0 },
 });
 
 export default mongoose.model<IProduct>("Product", productSchema);

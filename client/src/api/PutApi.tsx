@@ -48,3 +48,25 @@ export const useUpdateCategory = () => {
 
   return { putMutation };
 };
+
+//update company details
+export const useUpdateCompanyDetails = () => {
+  const putRequest = async (cId: string, updatedData: any) => {
+    try {
+      const response = await Axios.put(
+        `/api/v1/company-details/${cId}`,
+        updatedData
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error while updateing company details", error);
+      throw error;
+    }
+  };
+  const putMutation = useMutation(
+    (variables: { _id: string; data: FormData }) =>
+      putRequest(variables._id, variables.data)
+  );
+
+  return { putMutation };
+};

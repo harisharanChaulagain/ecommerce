@@ -1,8 +1,7 @@
-@import "../../../css-config/mixins.scss";
-.new-product-overlay {
+@import "../../../../css-config/mixins.scss";
+.new-profile-overlay {
   @include overlay-styles;
-
-  .new-product-main {
+  .new-profile-main {
     background: #fff;
     padding: 20px;
     border-radius: 8px;

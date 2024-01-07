@@ -68,12 +68,6 @@
         font-size: 14px;
         animation: colorTransition 1s infinite alternate;
       }
-      .log-out {
-        background: rgb(172, 28, 28);
-        padding: 2px 4px;
-        border-radius: 2px;
-        font-size: 14px;
-      }
       .cart-icon {
         position: relative;
         span {
@@ -87,6 +81,18 @@
           font-size: 12px;
           line-height: 1;
           border-radius: 10px;
+        }
+      }
+      .profile-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+        img {
+          width: 30px;
         }
       }
     }
