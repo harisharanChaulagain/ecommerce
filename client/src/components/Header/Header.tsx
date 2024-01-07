@@ -3,11 +3,10 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { TbSearch } from "react-icons/tb";
 import { CgShoppingCart } from "react-icons/cg";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaAngleDown } from "react-icons/fa";
 import Search from "./Search/Search";
 import Cart from "../Cart/Cart";
 import "./Header.scss";
-import { FaAngleDown } from "react-icons/fa";
 import DropDownItem from "./DropDownItem/DropDownItem";
 import { Context } from "../../utils/context";
 import NewCategory from "../Category/NewCategory/NewCategory";
@@ -183,12 +182,13 @@ const Header = () => {
                   onClick={handleProfileItem}
                   ref={profileRef}
                 >
-                  {detail?.logo?.data && (
+                  {isAdminLoggedIn() && detail?.logo?.data && (
                     <img
                       src={bufferToDataURL(detail?.logo?.data)}
                       alt={detail.name}
                     />
                   )}
+                  {isUserLoggedIn() && <FaUser style={{ color: "#5755d6" }} />}
                 </span>
               )}
             </div>

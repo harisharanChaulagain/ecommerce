@@ -75,7 +75,9 @@ export const useUserLogin = () => {
         },
       });
       const token = response.data.token;
+      const userId = response.data.userId;
       Cookies.set("token", token, { expires: 1 / 24 });
+      Cookies.set("userId", userId, { expires: 1 / 24 });
       return response;
     } catch (error) {
       console.error("Error logging in user:", error);
