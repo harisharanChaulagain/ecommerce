@@ -16,10 +16,11 @@ const NewProfile = ({
   isUpdate?: boolean;
   cId?: string | null;
 }) => {
-  const { setUpdateCompanyDetails }: any = useContext(Context);
+  const { setUpdateCompanyDetails, setAddCompanyDetails }: any =
+    useContext(Context);
   const { mutation } = usePostCompanyDetails();
   const { putMutation }: any = useUpdateCompanyDetails();
-  const { data: existingCompanyDetails } = useCompanyDetails();
+  const { data: existingCompanyDetails, refetch } = useCompanyDetails();
 
   useEffect(() => {
     if (
@@ -114,6 +115,8 @@ const NewProfile = ({
               onSuccess: () => {
                 toast.success("Company Details Updated Successfully!");
                 resetForm();
+                setUpdateCompanyDetails(false);
+                refetch();
               },
               onError: (error: any) => {
                 console.error("Error updating company details:", error);
@@ -127,6 +130,8 @@ const NewProfile = ({
         await mutation.mutate(formData);
         toast.success("Company details added successfully!");
         resetForm();
+        setAddCompanyDetails(false);
+        refetch();
       }
     } catch (error) {
       console.error(
