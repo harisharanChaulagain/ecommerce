@@ -14,7 +14,6 @@ export const getAllCategories = async (req: Request, res: Response) => {
 
         const itemCount = await Product.countDocuments({
           category: category.name,
-          image: imageBase64,
         });
 
         return {
