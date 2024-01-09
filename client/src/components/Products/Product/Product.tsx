@@ -2,13 +2,14 @@ import React from "react";
 import "./Product.scss";
 import { useNavigate } from "react-router-dom";
 import StarRating from "../../StarRating/StarRating";
+import { bufferToDataURL } from "../../../utils/imageUtils";
 
 interface ProductProps {
   product: {
     _id: string;
     name: string;
     price: number;
-    image: string;
+    image: { data: Buffer };
     averageRating: number;
   };
 }
@@ -25,10 +26,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
       }}
     >
       <div className="thumbnail">
-        <img
-          src={`../../../../public/product/${product.image.split("/")[2]}`}
-          alt="product image"
-        />
+        <img src={bufferToDataURL(product?.image?.data)} alt="product image" />
       </div>
       <div className="prod-details">
         <span className="name">{product.name}</span>

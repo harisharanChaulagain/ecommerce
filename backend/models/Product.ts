@@ -6,7 +6,7 @@ export interface IProduct extends Document {
   units: number;
   price: number;
   description: string;
-  image: string;
+  image: Buffer;
   ratings: number[];
   averageRating: number;
 }
@@ -17,7 +17,7 @@ const productSchema: Schema = new mongoose.Schema({
   units: { type: Number, required: true },
   price: { type: Number, required: true },
   description: { type: String, required: true },
-  image: { type: String, required: true },
+  image: { type: Buffer, required: true },
   ratings: { type: [Number], default: [] },
   averageRating: { type: Number, default: 0 },
 });

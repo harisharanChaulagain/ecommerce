@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import Category, { ICategory } from "../models/Category";
-import path from "path";
 import { UploadedFile } from "express-fileupload";
 import Product from "../models/Product";
 import { isValidImageType } from "../utils/imageUtils";

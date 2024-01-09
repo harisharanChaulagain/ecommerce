@@ -49,13 +49,13 @@ const Cart: React.FC<ShowCartProps> = ({ setShowCart }) => {
     return (
       <CartItem
         key={index}
-        image={selectedProduct.image}
-        name={selectedProduct.name}
+        image={selectedProduct?.image?.data}
+        name={selectedProduct?.name}
         quantity={productQuantities[index]}
         price={selectedProduct.price}
         onRemove={() => handleRemoveProduct(index)}
         index={index}
-        stock={selectedProduct.units}
+        stock={selectedProduct?.units}
       />
     );
   });

@@ -3,6 +3,7 @@ import "./CartItem.scss";
 import { MdClose } from "react-icons/md";
 import { Context } from "../../../utils/context";
 import { toast } from "react-toastify";
+import { bufferToDataURL } from "../../../utils/imageUtils";
 
 const CartItem: React.FC<any> = ({
   image,
@@ -37,10 +38,7 @@ const CartItem: React.FC<any> = ({
     <div className="cart-products">
       <div className="cart-product">
         <div className="img-container">
-          <img
-            src={`../../../../public/product/${image.split("/")[2]}`}
-            alt="img"
-          />
+          <img src={bufferToDataURL(image)} alt="img" />
         </div>
         <div className="prod-details">
           <span className="name">{name}</span>

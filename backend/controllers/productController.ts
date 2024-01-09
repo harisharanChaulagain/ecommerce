@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Product, { IProduct } from "../models/Product";
-import path from "path";
 import { UploadedFile } from "express-fileupload";
+import { isValidImageType } from "../utils/imageUtils";
 
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
@@ -16,26 +16,26 @@ export const getAllProducts = async (req: Request, res: Response) => {
 export const createProduct = async (req: Request, res: Response) => {
   try {
     const { name, category, units, price, description } = req.body;
-    let imageUrl: string | undefined;
+    let image: Buffer | undefined;
 
     if (req.files && req.files.image) {
-      const image = req.files.image as UploadedFile;
+      const imageFile = req.files.image as UploadedFile;
 
-      const imagePath = path.join(__dirname, "../../client/public/product");
-      const imageName = `${Date.now()}_${image.name}`;
-      image.mv(path.join(imagePath, imageName));
-
-      // Set the image URL
-      imageUrl = `/images/${imageName}`;
+      if (!isValidImageType(imageFile.mimetype)) {
+        return res.status(400).json({
+          error: "Invalid file type. Please upload a JPEG or PNG image.",
+        });
+      }
+      image = imageFile.data;
     }
 
-    const newProduct: any = new Product({
+    const newProduct: IProduct = new Product({
       name,
       category,
       units,
       price,
       description,
-      image: imageUrl,
+      image,
       ratings: [],
     });
     await newProduct.save();
