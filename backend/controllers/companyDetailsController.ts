@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import CompanyDetails, { ICompanyDetails } from "../models/CompanyDetails";
 import { UploadedFile } from "express-fileupload";
+import { isValidImageType } from "../utils/imageUtils";
 
 export const createCompanyDetails = async (req: Request, res: Response) => {
   try {
@@ -36,14 +37,6 @@ export const createCompanyDetails = async (req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-};
-
-const isValidImageType = (mimeType: string): boolean => {
-  return (
-    mimeType.startsWith("image/jpeg") ||
-    mimeType.startsWith("image/png") ||
-    mimeType.startsWith("image/jpg")
-  );
 };
 
 //get company details

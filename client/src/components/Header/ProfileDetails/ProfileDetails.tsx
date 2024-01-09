@@ -58,7 +58,6 @@ const ProfileDetails = () => {
     return null;
   }
   const id = companyData[0]?._id;
-
   return (
     <div className="profile-main">
       {isAdminLoggedIn() ? (

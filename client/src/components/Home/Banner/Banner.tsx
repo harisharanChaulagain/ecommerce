@@ -3,6 +3,7 @@ import "./Banner.scss";
 import { useProduct } from "../../../api/GetApi";
 import { useNavigate } from "react-router";
 import { typeWriter } from "../../../utils/typewriterUtils";
+import { bufferToDataURL } from "../../../utils/imageUtils";
 
 const Banner = () => {
   const { data: productData } = useProduct();
@@ -69,9 +70,7 @@ const Banner = () => {
             </button>
             <img
               className="banner-img"
-              src={`../../../../public/product/${
-                productData[currentImageIndex].image.split("/")[2]
-              }`}
+              src={bufferToDataURL(productData[currentImageIndex]?.image?.data)}
               alt="Banner Image"
             />
             <button className="prev-button" onClick={handleNextImage}>

@@ -6,6 +6,7 @@ import { useProduct } from "../../../api/GetApi";
 import { useDeleteProduct } from "../../../api/DeleteApi";
 import NewProduct from "../NewProduct/NewProduct";
 import { Context } from "../../../utils/context";
+import { bufferToDataURL } from "../../../utils/imageUtils";
 
 const ProductTable = () => {
   const { data: productData, isLoading, refetch } = useProduct();
@@ -60,10 +61,8 @@ const ProductTable = () => {
                 <td>{item.units}</td>
                 <td className="img-container">
                   <img
-                    src={`../../../../public/product/${
-                      item.image?.split("/")[2]
-                    }`}
-                    alt="img"
+                    src={bufferToDataURL(item?.image?.data)}
+                    alt={item?.name}
                   />
                 </td>
                 <td>

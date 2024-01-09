@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import StarRating from "../StarRating/StarRating";
 import Cookies from "js-cookie";
+import { bufferToDataURL } from "../../utils/imageUtils";
 
 interface Product {
   _id: string;
@@ -112,10 +113,8 @@ const SingleProduct = () => {
         <div className="single-product-page">
           <div className="left">
             <img
-              src={`../../../../public/product/${
-                selectedProduct?.image.split("/")[2]
-              }`}
-              alt="product image"
+              src={bufferToDataURL(selectedProduct?.image?.data)}
+              alt={selectedProduct?.name}
             />
           </div>
           <div className="right">
