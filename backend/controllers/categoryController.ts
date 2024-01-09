@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Category from "../models/Category";
+import Category, { ICategory } from "../models/Category";
 import path from "path";
 import { UploadedFile } from "express-fileupload";
 import Product from "../models/Product";
@@ -10,10 +10,18 @@ export const getAllCategories = async (req: Request, res: Response) => {
 
     const categoriesWithItemCount = await Promise.all(
       categories.map(async (category) => {
+        const imageBase64 = category.image.toString("base64");
+
         const itemCount = await Product.countDocuments({
           category: category.name,
+          image: imageBase64,
         });
-        return { ...category.toObject(), itemCount };
+
+        return {
+          ...category.toObject(),
+          image: { type: "Buffer", data: [...category.image] },
+          itemCount,
+        };
       })
     );
 
@@ -27,20 +35,22 @@ export const getAllCategories = async (req: Request, res: Response) => {
 export const createCategory = async (req: Request, res: Response) => {
   try {
     const { name } = req.body;
-    let imageUrl: string | undefined;
+    let image: Buffer | undefined;
 
     if (req.files && req.files.image) {
-      const image = req.files.image as UploadedFile;
+      const imageFile = req.files.image as UploadedFile;
 
-      const imagePath = path.join(__dirname, "../../client/public/category");
-      const imageName = `${Date.now()}_${image.name}`;
-      image.mv(path.join(imagePath, imageName));
+      if (!isValidImageType(imageFile.mimetype)) {
+        return res.status(400).json({
+          error: "Invalid file type. Please upload a JPEG or PNG image.",
+        });
+      }
 
       // Set the image URL
-      imageUrl = `/images/${imageName}`;
+      image = imageFile.data;
     }
 
-    const newCategory: any = new Category({ name, image: imageUrl });
+    const newCategory: ICategory = new Category({ name, image });
     await newCategory.save();
 
     console.log("New category added:", newCategory);
@@ -49,6 +59,13 @@ export const createCategory = async (req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
+};
+const isValidImageType = (mimeType: string): boolean => {
+  return (
+    mimeType.startsWith("image/jpeg") ||
+    mimeType.startsWith("image/png") ||
+    mimeType.startsWith("image/jpg")
+  );
 };
 
 //delete category by _id

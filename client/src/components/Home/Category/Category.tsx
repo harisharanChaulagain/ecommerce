@@ -2,10 +2,11 @@ import React from "react";
 import "./Category.scss";
 import { useCategory } from "../../../api/GetApi";
 import { Link } from "react-router-dom";
+import { bufferToDataURL } from "../../../utils/imageUtils";
 
 export interface ICategory {
   name: string;
-  image: string;
+  image: { data: Buffer };
   _id: string;
   itemCount: number;
 }
@@ -20,6 +21,7 @@ const Category = () => {
   if (isError) {
     return <div>Error fetching category data from API</div>;
   }
+  console.log("categoryData", categoryData);
 
   return (
     <div className="shop-by-category">
@@ -31,12 +33,12 @@ const Category = () => {
             key={index}
             className="category"
           >
-            <img
-              src={`../../../../public/category/${
-                category.image.split("/")[2]
-              }`}
-              alt={`Category ${index + 1}`}
-            />
+            {category?.image?.data && (
+              <img
+                src={bufferToDataURL(category?.image?.data)}
+                alt={category?.name}
+              />
+            )}
           </Link>
         ))}
       </div>

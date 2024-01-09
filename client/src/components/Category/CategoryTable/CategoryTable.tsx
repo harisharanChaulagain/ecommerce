@@ -7,6 +7,7 @@ import { useDeleteCategory } from "../../../api/DeleteApi";
 import { Context } from "../../../utils/context";
 import NewCategory from "../NewCategory/NewCategory";
 import { ICategory } from "../../Home/Category/Category";
+import { bufferToDataURL } from "../../../utils/imageUtils";
 
 const CategoryTable = () => {
   const { data: categoryData, isLoading, refetch } = useCategory();
@@ -56,12 +57,12 @@ const CategoryTable = () => {
                 <td>{index + 1}</td>
                 <td>{item.name}</td>
                 <td className="img-container">
-                  <img
-                    src={`../../../../public/category/${
-                      item.image?.split("/")[2]
-                    }`}
-                    alt="img"
-                  />
+                  {item?.image?.data && (
+                    <img
+                      src={bufferToDataURL(item?.image?.data)}
+                      alt={item?.name}
+                    />
+                  )}
                 </td>
                 <td>
                   <span
