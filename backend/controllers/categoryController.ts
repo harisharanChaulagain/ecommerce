@@ -3,6 +3,7 @@ import Category, { ICategory } from "../models/Category";
 import path from "path";
 import { UploadedFile } from "express-fileupload";
 import Product from "../models/Product";
+import { isValidImageType } from "../utils/imageUtils";
 
 export const getAllCategories = async (req: Request, res: Response) => {
   try {
@@ -45,8 +46,6 @@ export const createCategory = async (req: Request, res: Response) => {
           error: "Invalid file type. Please upload a JPEG or PNG image.",
         });
       }
-
-      // Set the image URL
       image = imageFile.data;
     }
 
@@ -59,13 +58,6 @@ export const createCategory = async (req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-};
-const isValidImageType = (mimeType: string): boolean => {
-  return (
-    mimeType.startsWith("image/jpeg") ||
-    mimeType.startsWith("image/png") ||
-    mimeType.startsWith("image/jpg")
-  );
 };
 
 //delete category by _id
