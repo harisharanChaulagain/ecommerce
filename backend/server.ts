@@ -1,14 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import categoryRoutes from "./routes/categoryRoutes";
-import productRoutes from "./routes/productRoutes";
+import categoryRoutes from "./src/routes/categoryRoutes";
+import productRoutes from "./src/routes/productRoutes";
 require("dotenv").config();
 import fileUpload from "express-fileupload";
-import paymentRoutes from "./routes/paymentRoutes";
-import userRoutes from "./routes/userRoutes";
-import adminRoutes from "./routes/adminRoutes";
-import companyDetailsRoute from "./routes/companyDetailsRoute";
+import paymentRoutes from "./src/routes/paymentRoutes";
+import userRoutes from "./src/routes/userRoutes";
+import adminRoutes from "./src/routes/adminRoutes";
+import companyDetailsRoute from "./src/routes/companyDetailsRoute";
 import cookieParser from "cookie-parser";
 
 const app = express();
