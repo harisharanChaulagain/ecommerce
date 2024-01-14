@@ -21,7 +21,6 @@ const Category = () => {
   if (isError) {
     return <div>Error fetching category data from API</div>;
   }
-  console.log("categoryData", categoryData);
 
   return (
     <div className="shop-by-category">

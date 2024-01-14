@@ -54,8 +54,6 @@ export const getCompanyDetails = async (req: Request, res: Response) => {
 export const updateCompanyDetails = async (req: Request, res: Response) => {
   try {
     const cId = req.params.id;
-    const updates = req.body;
-
     if (!cId) {
       return res.status(400).json({
         error: "Company Id is required:",
@@ -66,15 +64,41 @@ export const updateCompanyDetails = async (req: Request, res: Response) => {
     if (!company) {
       return res.status(404).json({ error: "Company not found." });
     }
-    for (const key in updates) {
-      if (Object.prototype.hasOwnProperty.call(updates, key)) {
-        (company as any)[key] = updates[key];
+
+    const companyUpdate: any = {};
+    for (const key in req.body) {
+      if (Object.prototype.hasOwnProperty.call(req.body, key)) {
+        companyUpdate[key] = req.body[key];
       }
     }
-    await company.save();
+
+    if (req.files && req.files.logo) {
+      const imageFile = req.files.logo as UploadedFile;
+
+      if (!isValidImageType(imageFile.mimetype)) {
+        return res.status(400).json({
+          error: "Invalid file type. Please upload a JPEG or PNG image.",
+        });
+      }
+
+      companyUpdate.logo = imageFile.data;
+    }
+
+    const updatedCompany = await CompanyDetails.findByIdAndUpdate(
+      cId,
+      { $set: companyUpdate },
+      { new: true }
+    );
+
+    if (!updatedCompany) {
+      return res
+        .status(500)
+        .json({ error: "Failed to update company details" });
+    }
+
     res.status(200).json({
       message: "Company details updated successfully!!",
-      updatedDetails: company,
+      updatedDetails: updatedCompany,
     });
   } catch (error) {
     console.error("Error updating company details", error);

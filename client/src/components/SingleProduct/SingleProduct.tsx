@@ -113,7 +113,11 @@ const SingleProduct = () => {
         <div className="single-product-page">
           <div className="left">
             <img
-              src={bufferToDataURL(selectedProduct?.image?.data)}
+              src={
+                selectedProduct?.image?.data
+                  ? bufferToDataURL(selectedProduct?.image?.data)
+                  : ""
+              }
               alt={selectedProduct?.name}
             />
           </div>
