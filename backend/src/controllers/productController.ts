@@ -129,8 +129,6 @@ export const deleteProductById = async (req: Request, res: Response) => {
 export const updateProduct = async (req: Request, res: Response) => {
   try {
     const productId = req.params.id;
-    const updates = req.body;
-
     if (!productId) {
       return res.status(400).json({
         error: "Product id is required:",
@@ -142,12 +140,31 @@ export const updateProduct = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Product not found." });
     }
 
-    for (const key in updates) {
-      if (Object.prototype.hasOwnProperty.call(updates, key)) {
-        (product as any)[key] = updates[key];
+    const productUpdate: any = {};
+    for (const key in req.body) {
+      if (Object.prototype.hasOwnProperty.call(req.body, key)) {
+        productUpdate[key] = req.body[key];
       }
     }
-    await product.save();
+
+    if (req.files && req.files.image) {
+      const imageFile = req.files.image as UploadedFile;
+
+      if (!isValidImageType(imageFile.mimetype)) {
+        return res.status(400).json({
+          error: "Invalid file type. Please upload a JPEG or PNG image.",
+        });
+      }
+
+      productUpdate.image = imageFile.data;
+    }
+
+    const updatedCompany = await Product.findByIdAndUpdate(
+      productId,
+      { $set: productUpdate },
+      { new: true }
+    );
+
     res.status(200).json({
       message: "Product updated successfully!!",
       updatedProduct: product,
