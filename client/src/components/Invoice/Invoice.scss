@@ -1,0 +1,60 @@
+.invoice-main {
+  margin: 20px 100px;
+  .download-btn {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    .download-btn-content {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background-color: #3498db;
+      padding: 0 10px;
+      color: #ffffff;
+    }
+    :hover {
+      background-color: #2980b9;
+    }
+  }
+  .company-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .company-name {
+      font-size: 40px;
+      font-weight: 600;
+      color: #5755d6;
+    }
+    .other-details {
+      display: flex;
+      gap: 10px;
+    }
+  }
+  hr {
+    height: 1px;
+    border: 1px solid #8e2de2;
+    background-color: #8e2de2;
+    margin: 5px 0;
+  }
+  .invoice-details {
+    .first {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      font-weight: 600;
+      color: #5755d6;
+    }
+    .second {
+      .date {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+  .particulars {
+  }
+  .footer {
+  }
+}
