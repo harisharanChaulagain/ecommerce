@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Express, Request, Response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import categoryRoutes from "./src/routes/categoryRoutes";
@@ -11,9 +11,14 @@ import adminRoutes from "./src/routes/adminRoutes";
 import companyDetailsRoute from "./src/routes/companyDetailsRoute";
 import cookieParser from "cookie-parser";
 
-const app = express();
-const PORT = process.env.PORT || 3001;
-const MONGODB_URI: any = process.env.MONGODB_URI;
+const app: Express = express();
+const PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
+const MONGODB_URI: string | undefined = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) {
+  console.error("MongoDB URI is not defined.");
+  process.exit(1);
+}
 
 // Middleware
 app.use(cors());
@@ -28,7 +33,7 @@ mongoose
     console.log("Connected to MongoDB");
 
     // Define a simple route for the root URL
-    app.get("/", (req, res) => {
+    app.get("/", (req: Request, res: Response) => {
       res.send("Welcome to the eCommerce backend!");
     });
 
