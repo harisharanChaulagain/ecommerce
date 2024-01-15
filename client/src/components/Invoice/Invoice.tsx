@@ -69,10 +69,16 @@ const Invoice = () => {
         </div>
       ))}
       <div className="particulars">
-        <div>Particular</div>
+        <div className="title">Particular</div>
         <InvoiceTable />
       </div>
-      <div className="footer">Footer</div>
+      <div className="footer">
+        <div className="first">
+          <span> Total: </span>
+          <span> 4354</span>
+        </div>
+        <div className="second">Thank You!</div>
+      </div>
     </div>
   );
 };
