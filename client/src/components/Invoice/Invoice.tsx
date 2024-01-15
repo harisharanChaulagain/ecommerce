@@ -46,37 +46,52 @@ const Invoice = () => {
                 />
               )}
             </span>
-            <span className="company-name">{detail?.name}</span>
-            <span className="other-details">
-              <span className="small-title">{detail?.address}</span>
-              <span className="small-title">{detail?.phone}</span>
-              <span className="small-title">{detail?.email}</span>
-            </span>
+            <div className="company-name">{detail?.name}</div>
+            <div className="other-details">
+              <div>
+                Address:
+                <span> {detail?.address}</span>
+              </div>
+              <div>
+                Phone: <span>{detail?.phone}</span>
+              </div>
+              <div>
+                Email: <span>{detail?.email}</span>
+              </div>
+            </div>
           </div>
         </>
       ))}
-      <hr />
       {filteredUserData?.map((detail: UserDetails) => (
         <div className="invoice-details">
-          <span className="first">Invoice Details</span>
-          <span className="second">
-            <span className="date">
-              <span>Date: {formattedDate}</span>
-              <span>Invoice No:.# fkd443RFdf</span>
-            </span>
-            <span className="name">Customer Name: {detail?.fullName}</span>
-          </span>
+          <div className="first">Invoice Details</div>
+          <hr />
+          <div className="second">
+            <div className="date">
+              <div>
+                Date:
+                <span> {formattedDate}</span>
+              </div>
+              <div>
+                Invoice No:.
+                <span># fkd443RFdf</span>
+              </div>
+            </div>
+            <div>
+              Customer Name: <span>{detail?.fullName}</span>
+            </div>
+          </div>
         </div>
       ))}
       <div className="particulars">
-        <div className="title">Particular</div>
         <InvoiceTable />
       </div>
       <div className="footer">
         <div className="first">
           <span> Total: </span>
-          <span> 4354</span>
+          <span>&#8377; 4354</span>
         </div>
+        <hr />
         <div className="second">Thank You!</div>
       </div>
     </div>

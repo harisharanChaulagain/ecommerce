@@ -27,17 +27,24 @@
     align-items: center;
     justify-content: center;
     .company-name {
-      font-size: 40px;
       font-weight: 600;
       color: #5755d6;
+      font-size: 30px;
+      @include md {
+        font-size: 40px;
+      }
     }
     .other-details {
       display: flex;
       flex-direction: column;
       align-items: center;
+      font-weight: 600;
       @include md {
         flex-direction: row;
         gap: 10px;
+      }
+      span {
+        color: gray;
       }
     }
   }
@@ -51,14 +58,23 @@
     .first {
       display: flex;
       justify-content: center;
-      font-size: 30px;
       font-weight: 600;
       color: #5755d6;
+      margin-top: 30px;
+      font-size: 22px;
+      @include md {
+        font-size: 30px;
+      }
     }
     .second {
+      font-weight: 600;
       .date {
         display: flex;
         justify-content: space-between;
+      }
+      span {
+        color: gray;
+        font-weight: 500;
       }
     }
   }
@@ -88,6 +104,7 @@
       font-style: italic;
       font-family: cursive;
       font-size: 20px;
+      color: #5755d6;
     }
   }
 }
