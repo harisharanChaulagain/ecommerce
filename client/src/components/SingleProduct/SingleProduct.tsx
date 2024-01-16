@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import StarRating from "../StarRating/StarRating";
 import Cookies from "js-cookie";
 import { bufferToDataURL } from "../../utils/imageUtils";
+import { Axios } from "../../lib/Axios";
 
 interface Product {
   _id: string;
@@ -85,23 +86,11 @@ const SingleProduct = () => {
 
   const handleRating = async (rating: number) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/products/${id}/rate`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ rating }),
-        }
-      );
+      await Axios.post(`/api/v1/products/${id}/rate`, {
+        rating,
+      });
 
-      if (response.ok) {
-        await response.json();
-        setUserRating(rating);
-      } else {
-        console.error("Failed to submit rating");
-      }
+      setUserRating(rating);
     } catch (error) {
       console.error("Error submitting rating:", error);
     }
