@@ -13,24 +13,45 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
+    height: auto;
     max-width: 1200px;
     margin: 0 auto;
-    @include md {
+    @include lg {
       height: 80px;
     }
     .left {
-      list-style-type: none;
-      display: none;
-      gap: 25px;
-      @include md {
-        display: flex;
-      }
-      li {
+      .left-first {
+        list-style-type: none;
+        display: none;
+        gap: 25px;
         font-size: 14px;
         font-weight: 600;
         text-transform: uppercase;
         cursor: pointer;
+        @include lg {
+          display: flex;
+        }
+      }
+      .left-second {
+        @include lg {
+          display: none;
+        }
+        .menu-icon {
+          font-size: 40px;
+          cursor: pointer;
+        }
+        .mobile-menu {
+          background-color: #302f2f;
+          padding: 10px;
+          margin-bottom: 5px;
+          cursor: pointer;
+          .menu-items {
+            padding: 5px;
+            &:hover {
+              background-color: #212121;
+            }
+          }
+        }
       }
     }
     .center {
