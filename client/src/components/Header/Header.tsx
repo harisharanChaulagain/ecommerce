@@ -22,11 +22,13 @@ const Header = () => {
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showNewDropdown, setShowNewDropdown] = useState(false);
   const [newCategory, setNewCategory] = useState(false);
   const [newProduct, setNewProduct] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef<any>(null);
+  const newDropdownRef = useRef<any>(null);
   const profileRef = useRef<any>(null);
   const context = useContext<any>(Context);
   const { productQuantities, showProfile, setShowProfile }: any =
@@ -52,6 +54,12 @@ const Header = () => {
         !dropdownRef.current.contains(event.target as Node)
       ) {
         setShowDropdown(false);
+      }
+      if (
+        newDropdownRef.current &&
+        !newDropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowNewDropdown(false);
       }
       if (
         profileRef.current &&
@@ -87,6 +95,11 @@ const Header = () => {
     setShowDropdown(!showDropdown);
     window.scrollTo(0, 0);
   };
+  const handleNewDropdownClick = () => {
+    setShowNewDropdown(!showNewDropdown);
+    window.scrollTo(0, 0);
+  };
+
   const handleProfileItem = () => {
     setShowProfile(!showProfile);
     window.scrollTo(0, 0);
@@ -164,8 +177,8 @@ const Header = () => {
                     {isAdminLoggedIn() && (
                       <div
                         className="menu-items"
-                        onClick={handleDropdownClick}
-                        ref={dropdownRef}
+                        onClick={handleNewDropdownClick}
+                        ref={newDropdownRef}
                       >
                         More Options
                       </div>
@@ -235,7 +248,7 @@ const Header = () => {
       {showSearch && <Search setShowSearch={setShowSearch} />}
       {newCategory && <NewCategory isUpdate={false} />}
       {newProduct && <NewProduct isUpdate={false} />}
-      {showDropdown && <DropDownItem />}
+      {(showDropdown || showNewDropdown) && <DropDownItem />}
       {showProfile && <ProfileItem />}
     </>
   );
