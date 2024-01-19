@@ -18,6 +18,7 @@ import CategoryTable from "./components/Category/CategoryTable/CategoryTable";
 import ProductsTable from "./components/Products/ProductsTable/ProductsTable";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import ProfileDetails from "./components/Header/ProfileDetails/ProfileDetails";
+import Invoice from "./components/Invoice/Invoice";
 
 const App: React.FC = () => {
   return (
@@ -37,6 +38,7 @@ const App: React.FC = () => {
           <Route path="/product/table" element={<ProductsTable />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/profile/details" element={<ProfileDetails />} />
+          <Route path="/invoice" element={<Invoice />} />
         </Routes>
         <Newsletter />
         <Footer />

@@ -1,0 +1,110 @@
+@import "../../css-config/mixins.scss";
+
+.invoice-main {
+  margin: 20px 20px;
+  @include md {
+    margin: 20px 100px;
+  }
+  .download-btn {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    .download-btn-content {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background-color: #3498db;
+      padding: 0 10px;
+      color: #ffffff;
+    }
+    :hover {
+      background-color: #2980b9;
+    }
+  }
+  .company-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .company-name {
+      font-weight: 600;
+      color: #5755d6;
+      font-size: 30px;
+      @include md {
+        font-size: 40px;
+      }
+    }
+    .other-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-weight: 600;
+      @include md {
+        flex-direction: row;
+        gap: 10px;
+      }
+      span {
+        color: gray;
+      }
+    }
+  }
+  hr {
+    height: 1px;
+    border: 1px solid #8e2de2;
+    background-color: #8e2de2;
+    margin: 5px 0;
+  }
+  .invoice-details {
+    .first {
+      display: flex;
+      justify-content: center;
+      font-weight: 600;
+      color: #5755d6;
+      margin-top: 30px;
+      font-size: 22px;
+      @include md {
+        font-size: 30px;
+      }
+    }
+    .second {
+      font-weight: 600;
+      .date {
+        display: flex;
+        justify-content: space-between;
+      }
+      span {
+        color: gray;
+        font-weight: 500;
+      }
+    }
+  }
+  .particulars {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #5755d6;
+    }
+  }
+  .footer {
+    .first {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 10vw;
+      font-size: 20px;
+      font-weight: 600;
+      color: #5755d6;
+    }
+    .second {
+      display: flex;
+      justify-content: center;
+      margin: 10px;
+      font-style: italic;
+      font-family: cursive;
+      font-size: 20px;
+      color: #5755d6;
+    }
+  }
+}

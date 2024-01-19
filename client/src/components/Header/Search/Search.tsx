@@ -3,6 +3,7 @@ import { MdClose } from "react-icons/md";
 import "./Search.scss";
 import { useSearchProduct } from "../../../api/GetApi";
 import { useNavigate } from "react-router";
+import { bufferToDataURL } from "../../../utils/imageUtils";
 
 interface SearchProps {
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,12 +42,7 @@ const Search: React.FC<SearchProps> = ({ setShowSearch }) => {
               }}
             >
               <div className="img-container">
-                <img
-                  src={`../../../../public/product/${
-                    product.image.split("/")[2]
-                  }`}
-                  alt="img"
-                />
+                <img src={bufferToDataURL(product?.image?.data)} alt="img" />
               </div>
               <div className="prod-details">
                 <span className="name">{product.name}</span>
