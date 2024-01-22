@@ -5,22 +5,6 @@
   @include md {
     margin: 20px 100px;
   }
-  .download-btn {
-    display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
-    .download-btn-content {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      background-color: #3498db;
-      padding: 0 10px;
-      color: #ffffff;
-    }
-    :hover {
-      background-color: #2980b9;
-    }
-  }
   .company-details {
     display: flex;
     flex-direction: column;
@@ -106,5 +90,26 @@
       font-size: 20px;
       color: #5755d6;
     }
+  }
+}
+
+.download-btn {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  margin: 20px 20px;
+
+  .download-btn-content {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #3498db;
+    padding: 0 10px;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+  }
+  :hover {
+    background-color: #2980b9;
   }
 }
