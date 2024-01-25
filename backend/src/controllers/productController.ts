@@ -206,3 +206,30 @@ export const rateProduct = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+//invoice details
+export const getInvoiceDetails = async (req: Request, res: Response) => {
+  try {
+    const { products } = req.query;
+    let productIds = products;
+
+    if (!productIds || !Array.isArray(productIds)) {
+      if (typeof productIds === "string") {
+        productIds = productIds.split(",");
+      } else {
+        return res.status(400).json({
+          error: "Invalid request. Please provide an array of product ids.",
+        });
+      }
+    }
+
+    const invoiceDetails = await Product.find({
+      _id: { $in: productIds },
+    }).select("name units price");
+
+    res.json(invoiceDetails);
+  } catch (error) {
+    console.error("Error fetching invoice details:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

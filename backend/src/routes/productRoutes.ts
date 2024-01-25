@@ -13,5 +13,6 @@ router.post(
 router.delete("/api/v1/products/:id", productController.deleteProductById);
 router.put("/api/v1/products/:id", productController.updateProduct);
 router.post("/api/v1/products/:id/rate", productController.rateProduct);
+router.get("/api/v1/invoice", productController.getInvoiceDetails);
 
 export default router;

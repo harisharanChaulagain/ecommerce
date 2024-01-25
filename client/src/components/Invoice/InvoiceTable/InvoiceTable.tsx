@@ -1,55 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useInvoice } from "../../../api/GetApi";
 import "./InvoiceTable.scss";
 
-const InvoiceTable = () => {
+interface INVOICEPROPS {
+  storedProductIds: string[];
+  storedProductQuantities: string[];
+  updateTotal: (newTotal: number) => void;
+}
+
+const InvoiceTable: React.FC<INVOICEPROPS> = ({
+  storedProductIds,
+  storedProductQuantities,
+  updateTotal,
+}) => {
+  const { data: invoiceData } = useInvoice(storedProductIds);
+
+  useEffect(() => {
+    const newTotal = invoiceData?.reduce(
+      (acc: number, item: any, index: number) =>
+        acc +
+        (storedProductQuantities &&
+          parseInt(storedProductQuantities[index], 10) * item?.price),
+      0
+    );
+    updateTotal(newTotal);
+  }, [invoiceData, storedProductQuantities, updateTotal]);
+
   return (
     <div className="invoice-table">
       <table>
         <thead>
           <tr>
             <th>S.N.</th>
-            <th>2222222</th>
+            <th>Description</th>
             <th>Price</th>
             <th>Qty</th>
             <th>Amount</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>43</td>
-            <td> 344</td>
-            <td>4333</td>
-            <td>4353</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>dfadf</td>
-            <td> 344</td>
-            <td>4 </td>
-            <td>4353</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>dfadf</td>
-            <td> 344</td>
-            <td>4 </td>
-            <td>4353</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>dfadf</td>
-            <td> 344</td>
-            <td>4 </td>
-            <td>4353</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>dfadf</td>
-            <td> 344</td>
-            <td>4 </td>
-            <td>4353</td>
-          </tr>
+          {invoiceData &&
+            invoiceData?.length > 0 &&
+            invoiceData?.map((item: any, index: number) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{item?.name}</td>
+                <td>{item?.price}</td>
+                <td>
+                  {storedProductQuantities && storedProductQuantities[index]}
+                </td>
+                <td>
+                  {storedProductQuantities &&
+                    parseInt(storedProductQuantities[index], 10) * item?.price}
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router";
 import myKey from "./KhaltiKey";
 import { Axios } from "../../lib/Axios";
 import { toast } from "react-toastify";
@@ -8,6 +9,7 @@ import { useUpdateProductQuantities } from "../../api/PostApi";
 const config = (products: any) => {
   const { setProductQuantities, setProductIds }: any = useContext(Context);
   const { mutation: updateProductQuantities } = useUpdateProductQuantities();
+  const navigate = useNavigate();
 
   const onSuccess = async () => {
     try {
@@ -27,6 +29,7 @@ const config = (products: any) => {
             toast.success("Payment Successful!");
             setProductQuantities([]);
             setProductIds([]);
+            navigate("/invoice");
           })
           .catch((error) => {
             console.log(error);

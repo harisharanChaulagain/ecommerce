@@ -73,11 +73,21 @@ const SingleProduct = () => {
     if (adminToken) {
       toast.warn("Admin can't add product to cart!");
     } else if (token) {
-      setProductQuantities((prevQuantities: any) => [
-        ...prevQuantities,
-        quantity,
-      ]);
-      setProductIds((prevIds: any) => [...prevIds, selectedProduct._id]);
+      setProductQuantities((prevQuantities: any) => {
+        const newQuantities = [...prevQuantities, quantity];
+        localStorage.setItem(
+          "productQuantities",
+          JSON.stringify(newQuantities)
+        );
+        return newQuantities;
+      });
+      setProductIds((prevIds: any) => {
+        const newIds = [...prevIds, selectedProduct._id];
+
+        localStorage.setItem("productIds", JSON.stringify(newIds));
+
+        return newIds;
+      });
     } else {
       toast.warn("Login before add to cart!");
       navigate("/login");

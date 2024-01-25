@@ -89,3 +89,24 @@ const fetchUsersDetails = async (): Promise<any> => {
 export const useUsersDetails = () => {
   return useQuery<any>("userDetailsData", fetchUsersDetails);
 };
+
+//invoice details
+const fetchInvoiceData = async (productIds: string[]): Promise<any> => {
+  try {
+    const response = await Axios.get(
+      `/api/v1/invoice?products=${productIds.join(",")}`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch invoice data from API");
+  }
+};
+export const useInvoice = (productIds: string[]) => {
+  return useQuery<any>(
+    ["invoiceData", productIds],
+    () => fetchInvoiceData(productIds),
+    {
+      enabled: Boolean(productIds && productIds.length > 0),
+    }
+  );
+};
