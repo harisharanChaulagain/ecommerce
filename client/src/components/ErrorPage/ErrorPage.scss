@@ -1,0 +1,24 @@
+.error-page-container {
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .error-image {
+    max-width: 100%;
+  }
+  h4 {
+    color: rgb(243, 19, 19);
+    margin-bottom: 10px;
+  }
+  button {
+    border: none;
+    height: 40px;
+    width: 200px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    background-color: #5755d6;
+    margin-bottom: 30px;
+  }
+}

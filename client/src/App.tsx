@@ -19,6 +19,7 @@ import ProductsTable from "./components/Products/ProductsTable/ProductsTable";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import ProfileDetails from "./components/Header/ProfileDetails/ProfileDetails";
 import Invoice from "./components/Invoice/Invoice";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 const App: React.FC = () => {
   return (
@@ -39,6 +40,7 @@ const App: React.FC = () => {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/profile/details" element={<ProfileDetails />} />
           <Route path="/invoice" element={<Invoice />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Newsletter />
         <Footer />
