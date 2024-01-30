@@ -25,4 +25,3 @@ dist-ssr
 
 # image asset
 /public/
-/src/components/Khalti/KhaltiKey.tsx
