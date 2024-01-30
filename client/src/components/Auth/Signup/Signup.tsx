@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Signup.scss";
+import "./Slgnup.scss";
 import { useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useUserCreate } from "../../../api/PostApi";
