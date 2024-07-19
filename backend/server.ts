@@ -16,7 +16,13 @@ const PORT = process.env.PORT || 3001;
 const MONGODB_URI: any = process.env.MONGODB_URI;
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: ["https://ecommerce-bphv.onrender.com/"], 
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(fileUpload());
 app.use(cookieParser());
